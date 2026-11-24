@@ -1,0 +1,72 @@
+:root{color-scheme:dark;--background:#000;--foreground:#f5f5f3;--muted:#b8babf;--line:#191b20;--accent:#a5c7ff;--edge:clamp(32px,3.34vw,56px);--ui-font:'Space Grotesk';--headline-font:'Prompt';--reveal-ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--background);color:var(--foreground)}
+body,button,a{font-family:var(--ui-font),sans-serif;font-weight:500;letter-spacing:-.05em;line-height:1}
+button,a{-webkit-tap-highlight-color:transparent}
+button{color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+button{font-size:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
+.hero{position:relative;min-height:760px;height:100svh;overflow:hidden;padding:32px var(--edge) var(--edge);background:linear-gradient(to bottom right,#000000 0%,#0f0f0f 26%,#000000 44%,#0f0f0f 57%,#000000 72%,#0f0f0f 87%,#000000 100%)}
+.header{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between}
+.wordmark{font-size:25px;letter-spacing:-.06em}
+.platform-label{position:absolute;left:50%;transform:translateX(-50%);font-size:12px;color:var(--muted);white-space:nowrap}
+.menu-label{font-size:12px;color:var(--foreground);white-space:nowrap}
+.start-button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:16px 25px;border:1px solid var(--foreground);border-radius:7px;background:var(--foreground);color:var(--background);font-size:12px;transition:background .25s,transform .25s,border-color .25s}
+.start-button:hover{background:#dce6f5;border-color:#dce6f5;transform:scale(1.025)}
+.headline-row{position:relative;z-index:10;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-top:62px}
+.headline-row .start-button{flex:0 0 auto}
+.headline{position:relative;margin:0 0 0 -4px;width:max-content;max-width:100%;font-family:var(--headline-font),sans-serif;font-size:clamp(42px,5.56vw,80px);font-weight:600;letter-spacing:-.05em;line-height:1}
+.headline .line{display:block;white-space:nowrap}
+.star-origin{position:absolute;left:28%;top:21%;width:50%;height:60%;pointer-events:none}
+.webgl-stage{position:fixed;inset:0;z-index:5;pointer-events:none}
+.webgl-stage canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.technical-line{position:absolute;left:var(--edge);right:var(--edge);top:56%;height:14px;display:flex;justify-content:flex-start;pointer-events:none;z-index:0;opacity:.38}
+.measure{display:flex;align-items:center;gap:28px;height:14px}
+.measure-left{width:38%}
+.measure i{font-size:18px;font-style:normal;color:#515a68;font-weight:500}
+.measure b{height:8px;flex:1;background:repeating-linear-gradient(to right,#3e4651 0,#3e4651 1px,transparent 1px,transparent 12px);opacity:.48}
+.hero-bottom{position:absolute;bottom:var(--edge);left:var(--edge);right:var(--edge);z-index:10;display:flex;justify-content:space-between;align-items:flex-end;gap:48px}
+.film-card{position:relative;display:block;flex:0 0 auto;width:clamp(240px,20vw,300px);aspect-ratio:4/5;padding:0;overflow:hidden;background:#04070c;border:1px solid #262b34;border-radius:8px;text-align:left;animation:rise-in .9s .5s var(--reveal-ease) both;transition:border-color .35s}
+.mini-stage{position:absolute;inset:0;display:block;background:#04070c url("images/nexora-film-cover.png") center/contain no-repeat;transition:transform .7s cubic-bezier(.2,.65,.2,1)}
+.mini-stage canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.film-card:hover{border-color:#596370}
+.film-card:hover .mini-stage{transform:scale(1.03)}
+.play-button{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:rgba(248,249,251,.94);transition:transform .35s}
+.play-button svg{height:23px;width:23px;fill:#060709;margin-left:3px}
+.film-card:hover .play-button{transform:translate(-50%,-50%) scale(1.07)}
+.film-meta{position:absolute;bottom:20px;left:20px;display:flex;flex-direction:column;gap:5px;font-size:11px;text-shadow:0 1px 5px #000}
+.film-meta span+span{color:#c0c4ce}
+.statement{width:clamp(500px,40.5vw,640px);padding-bottom:1px}
+.statement p{margin:0;font-size:clamp(27px,2.16vw,34px);line-height:1;font-weight:500;letter-spacing:-.05em;text-wrap:pretty}
+.statement p span{display:block;white-space:nowrap}
+@media(min-width:769px){.statement p{text-align:right}}
+dialog{width:min(560px,calc(100% - 40px));padding:0;border:1px solid #30333a;border-radius:12px;background:#090b0f;color:var(--foreground);box-shadow:0 30px 100px #0009;max-height:90svh}
+dialog::backdrop{background:#000c;backdrop-filter:blur(8px)}
+body:has(dialog[open]){overflow:hidden}
+.close-button{position:absolute;right:12px;top:12px;z-index:1;display:grid;place-items:center;width:44px;height:44px;border:1px solid #ffffff30;border-radius:50%;background:#050609d9;color:var(--foreground);font-size:27px;letter-spacing:0}
+.dialog-content{padding:56px 36px 36px}
+.eyebrow{display:block;color:var(--muted);font-size:12px}
+dialog h2{font-size:36px;line-height:1;margin:24px 0 16px;font-weight:500;text-wrap:balance}
+dialog p{color:var(--muted);font-size:18px;line-height:1.4;margin:0 0 28px;text-wrap:pretty}
+.film-dialog{width:min(800px,calc(100% - 40px))}
+.film-dialog>img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.film-dialog .dialog-content{padding-top:30px}
+.platform-topics{display:flex;flex-direction:column;gap:0;margin-top:32px}
+.platform-topics span{border-top:1px solid #272b32;padding:18px 0;font-size:18px}
+/* Clipped line reveal: masks are built by text-reveal.js. The mask padding gives
+   descenders room; the negative margins keep the original text metrics. */
+.rm{display:block;overflow:hidden;padding:.04em .05em .16em;margin:-.04em -.05em -.16em}
+.rm-i{display:block;transform:translateY(0);opacity:1;transition:transform .85s var(--reveal-ease),opacity .85s var(--reveal-ease);will-change:transform}
+.rw{display:inline-block}
+/* Targets stay hidden until split; split lines stay hidden until triggered. */
+@media(prefers-reduced-motion:no-preference){
+  .reveal-js [data-rv]{opacity:0}
+  .reveal-js [data-rv].on,.reveal-js [data-rv][data-split]{opacity:1}
+  .reveal-js [data-split]:not(.on):not([data-rv="star"]) .rm-i{transform:translateY(115%);opacity:.35}
+}
+@keyframes rise-in{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:1800px){.hero{min-height:880px}.headline-row{margin-top:80px}.film-card{width:300px}}
+@media(max-width:1100px) and (min-width:701px){.hero{min-height:700px}.hero-bottom{gap:36px}.film-card{width:26vw}.statement{width:48%;}.statement p{font-size:2.5vw}.statement p span{display:inline;white-space:normal}.statement p span:not(:last-child)::after{content:' '}}
+@media(max-width:700px){:root{--edge:24px}.hero{padding-top:24px;height:auto;min-height:100svh;overflow:hidden}.header{height:44px}.wordmark{font-size:22px}.platform-label{display:none}.start-button{padding:14px 19px;font-size:11px}.headline-row{margin-top:57px;gap:16px}.headline{margin-left:-2px;font-size:clamp(30px,8.6vw,44px)}.headline .line{white-space:normal;text-wrap:balance}.star-origin{left:0;top:265px;width:100%;height:220px}.technical-line{top:380px}.measure-left{width:30%}.measure{gap:12px}.hero-bottom{position:relative;left:auto;right:auto;bottom:auto;display:flex;flex-direction:column;gap:40px;margin-top:250px;align-items:stretch}.film-card{width:min(64vw,280px)}.statement{width:100%;padding:0 0 12px}.statement p{font-size:27px;line-height:1.08}.statement p span{display:inline;white-space:normal}.statement p span:not(:last-child)::after{content:' '}.dialog-content{padding:64px 24px 28px}dialog h2{font-size:32px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}

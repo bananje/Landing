@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "landing-page-copywriter": {
+      "source": "onewave-ai/claude-skills",
+      "sourceType": "github",
+      "skillPath": "landing-page-copywriter/SKILL.md",
+      "computedHash": "4d69cba88cb858d90101c4f1b20d3bec94088c0a5e49a7ebc046ea2bd5417958"
+    }
+  }
+}

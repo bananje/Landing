@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Лайм и чернила — дизайн-система</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600&family=Unbounded:wght@500;700&display=swap&subset=cyrillic">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    /* Только для самой страницы-справочника */
+    .sg-hero { padding-top: var(--space-6); padding-bottom: var(--space-9); min-height: 640px; }
+    .sg-hero .ghost-word { left: -2vw; top: 18%; }
+    .sg-hero .rays { right: -8vw; top: 6%; }
+    .sg-hero__content { display: flex; flex-direction: column; align-items: center; gap: var(--space-6); padding-top: var(--space-9); text-align: center; }
+    .sg-hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); }
+
+    .sg-block { display: flex; flex-direction: column; gap: var(--space-6); }
+    .sg-label { margin: 0 0 var(--space-3); font-size: var(--fs-micro); font-weight: var(--fw-semi); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
+    .sg-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+
+    .swatches { display: grid; gap: var(--grid-gap); grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); }
+    .swatch { display: flex; flex-direction: column; min-width: 0; border-radius: var(--r-md); background: var(--surface); overflow: hidden; }
+    .swatch__chip { height: 88px; border-bottom: 1px solid var(--line); }
+    .swatch__meta { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 2px; }
+    .swatch__name { font-size: var(--fs-small); font-weight: var(--fw-semi); }
+    .swatch__code { font-size: var(--fs-micro); color: var(--text-muted); font-variant-numeric: tabular-nums; }
+    .swatch__role { font-size: var(--fs-micro); color: var(--text-muted); line-height: 1.4; }
+
+    .type-table { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+    .type-row { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: var(--space-5); align-items: baseline; padding: var(--space-5) 0; border-bottom: 1px solid var(--line); }
+    .type-row__meta { font-size: var(--fs-micro); color: var(--text-muted); line-height: 1.5; }
+    .type-row__meta b { display: block; color: var(--text); font-weight: var(--fw-semi); }
+
+    .scale { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: flex-end; }
+    .scale div { display: grid; place-items: center; background: var(--surface-ink); color: var(--text-on-ink); font-size: var(--fs-micro); }
+    .radius-demo { width: 96px; height: 96px; display: grid; place-items: center; background: var(--surface-accent); font-size: var(--fs-micro); font-weight: var(--fw-medium); }
+
+    .ph { aspect-ratio: 4 / 5; background: linear-gradient(160deg, #e9e9e9, #bdbdbd 55%, #8c8c8c); }
+    .ph-note { font-size: var(--fs-micro); color: var(--text-muted); }
+
+    .rule-grid { display: grid; gap: var(--grid-gap); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .rule-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--space-3); font-size: var(--fs-small); line-height: 1.5; }
+    .rule-list li { display: flex; gap: var(--space-2); }
+    .rule-list--do li::before { content: "✓"; font-weight: 600; }
+    .rule-list--dont li::before { content: "✕"; font-weight: 600; }
+
+    .deco-stage { position: relative; min-height: 260px; display: grid; place-items: center; overflow: hidden; }
+    .deco-stage .rays { position: relative; width: min(100%, 260px); }
+
+    @media (max-width: 720px) {
+      .type-row { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+      .rule-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Шапка ===== -->
+  <div class="container">
+    <header class="nav">
+      <strong style="font-weight:600;letter-spacing:-0.02em">АВТОМАТИЗАЦИЯ<span style="color:var(--text-faint)"> / агентство</span></strong>
+      <nav class="nav__links" aria-label="Разделы справочника">
+        <a href="#colors">Цвета</a>
+        <a href="#type">Шрифты</a>
+        <a href="#controls">Кнопки</a>
+        <a href="#tiles">Плитки</a>
+        <a href="#steps">Шаги</a>
+        <a href="#decor">Декор</a>
+        <a href="#rules">Правила</a>
+      </nav>
+      <a class="btn btn--sm" href="https://t.me/kenig_web" target="_blank" rel="noopener noreferrer">Написать <span class="btn__arrow" aria-hidden="true">↗</span></a>
+    </header>
+  </div>
+
+  <!-- ===== Превью первого экрана ===== -->
+  <section class="section section--wash sg-hero has-ghost" aria-labelledby="hero-title">
+    <p class="ghost-word" aria-hidden="true">процесс</p>
+    <div class="rays" aria-hidden="true"></div>
+    <div class="container sg-hero__content">
+      <span class="eyebrow">внедряем технологии с умом</span>
+      <h1 class="display" id="hero-title">Сначала процесс —<br><span class="muted-part">потом автоматизация</span></h1>
+      <p class="lead center" style="max-width:56ch">Аудит как есть, карта автоматизации, базовые цифры и KPI до начала внедрения. ИИ и интеграции — инструменты, а не обещание.</p>
+      <div class="sg-hero__actions">
+        <a class="btn" href="https://t.me/kenig_web" target="_blank" rel="noopener noreferrer">Написать в Telegram <span class="btn__arrow" aria-hidden="true">↗</span></a>
+        <a class="btn btn--outline" href="#steps">Как мы работаем <span class="btn__arrow" aria-hidden="true">↓</span></a>
+      </div>
+      <ul class="facts" aria-label="Факты">
+        <li><span class="facts__dot"></span>Расчёт до начала работ</li>
+        <li><span class="facts__dot"></span>Фиксированная цена и срок</li>
+        <li><span class="facts__dot"></span>Закрытый контур по запросу</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== Цвета ===== -->
+  <section class="section" id="colors">
+    <div class="container sg-block">
+      <div class="section-head" style="margin-bottom:0">
+        <span class="eyebrow">цвета</span>
+        <h2 class="h2">Белый, чёрный и один лайм. <span class="muted-part">Всё остальное — оттенки серого.</span></h2>
+      </div>
+
+      <div>
+        <p class="sg-label">Основные</p>
+        <div class="swatches">
+          <div class="swatch"><div class="swatch__chip" style="background:var(--lime-500)"></div><div class="swatch__meta"><span class="swatch__name">Лайм</span><span class="swatch__code">#CCF52B · --lime-500</span><span class="swatch__role">Плашки, лаймовые плитки, кружок со стрелкой. Текст на нём всегда чёрный.</span></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:var(--lime-600)"></div><div class="swatch__meta"><span class="swatch__name">Лайм насыщенный</span><span class="swatch__code">#B9F500 · --lime-600</span><span class="swatch__role">Гигантские слова на фоне, лучи, искры. Не для текста.</span></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:var(--ink-950)"></div><div class="swatch__meta"><span class="swatch__name">Чернила</span><span class="swatch__code">#0B0B0B · --ink-950</span><span class="swatch__role">Заголовки, основные кнопки, одна тёмная плитка в сетке.</span></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:var(--paper-50)"></div><div class="swatch__meta"><span class="swatch__name">Бумага</span><span class="swatch__code">#F8F8F8 · --paper-50</span><span class="swatch__role">Фон страницы.</span></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:var(--paper-0)"></div><div class="swatch__meta"><span class="swatch__name">Белый</span><span class="swatch__code">#FFFFFF · --paper-0</span><span class="swatch__role">Карточки на дымчатом фоне.</span></div></div>
+        </div>
+      </div>
+
+      <div>
+        <p class="sg-label">Серые и вспомогательные</p>
+        <div class="swatches">
+          <div class="swatch"><div class="swatch__chip" style="background:var(--paper-100)"></div><div class="swatch__meta"><span class="swatch__name">Серая плитка</span><span class="swatch__code">#F0F0F0 · --paper-100</span><span class="swatch__role">Плитки статистики, чипы.</span></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:var(--paper-300)"></div><div class="swatch__meta"><span class="swatch__name">Серая выделенная</span><span class="swatch__code">#D9D9D9 · --paper-300</span><span class="swatch__role">Одна плитка в ряду, которую хотим подсветить.</span></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:var(--ink-600)"></div><div class="swatch__meta"><span class="swatch__name">Текст приглушённый</span><span class="swatch__code">#6A6A6A · --ink-600</span><span class="swatch__role">Основной мелкий текст. Контраст 5.3:1 на белом.</span></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:var(--ink-400)"></div><div class="swatch__meta"><span class="swatch__name">Текст бледный</span><span class="swatch__code">#8E8E8E · --ink-400</span><span class="swatch__role">Только вторая половина крупного заголовка.</span></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:var(--cobalt-600)"></div><div class="swatch__meta"><span class="swatch__name">Кобальт</span><span class="swatch__code">#1B2FD8 · --cobalt-600</span><span class="swatch__role">Один контрастный блок на всю страницу, не чаще.</span></div></div>
+        </div>
+      </div>
+
+      <div>
+        <p class="sg-label">Дымка (фон секции)</p>
+        <div style="height:140px;border-radius:var(--r-lg);background:var(--wash-lime)"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Типографика ===== -->
+  <section class="section section--wash" id="type">
+    <div class="container sg-block">
+      <div class="section-head" style="margin-bottom:0">
+        <span class="eyebrow">шрифты</span>
+        <h2 class="h2">Один гротеск для всего. <span class="muted-part">Широкий шрифт только для гигантских слов.</span></h2>
+      </div>
+
+      <div class="type-table">
+        <div class="type-row"><div class="type-row__meta"><b>Гигантское слово</b>Unbounded 700<br>--fs-ghost · −0.06em</div><div><span class="ghost-word" style="position:static;display:block;font-size:clamp(4rem,14vw,9rem)" aria-hidden="true">сайт</span></div></div>
+        <div class="type-row"><div class="type-row__meta"><b>Display</b>Onest 500<br>--fs-display · −0.04em</div><p class="display" style="margin:0">Сначала процесс</p></div>
+        <div class="type-row"><div class="type-row__meta"><b>H1</b>Onest 500<br>--fs-h1 · −0.03em</div><p class="h1" style="margin:0">Системный и быстрый подход <span class="muted-part">к развитию бизнеса</span></p></div>
+        <div class="type-row"><div class="type-row__meta"><b>H2</b>Onest 500<br>--fs-h2 · −0.03em</div><p class="h2" style="margin:0">Помогаем закрыть все ключевые потребности</p></div>
+        <div class="type-row"><div class="type-row__meta"><b>H3 / заголовок плитки</b>Onest 600<br>--fs-h3</div><p class="h3" style="margin:0">Карта автоматизации и расчёт KPI</p></div>
+        <div class="type-row"><div class="type-row__meta"><b>Lead</b>Onest 400<br>--fs-lead</div><p class="lead">Аудит как есть, карта автоматизации и базовые цифры до начала внедрения.</p></div>
+        <div class="type-row"><div class="type-row__meta"><b>Body</b>Onest 400<br>--fs-body · 1.55</div><p class="body">Мы описываем, как компания работает сейчас, считаем, что именно стоит автоматизировать, и только потом предлагаем решение. Если расчёт покажет, что автоматизация не окупится, скажем об этом до начала работ.</p></div>
+        <div class="type-row"><div class="type-row__meta"><b>Малый текст</b>Onest 400<br>--fs-small</div><p class="small">Подпись к плитке, пункт списка, примечание рядом с кнопкой.</p></div>
+        <div class="type-row"><div class="type-row__meta"><b>Номер шага</b>Onest 300<br>--fs-index</div><p style="margin:0;font-size:var(--fs-index);font-weight:300;line-height:1;letter-spacing:var(--tracking-head)">/01 /02 /03 /04</p></div>
+        <div class="type-row"><div class="type-row__meta"><b>Метрика</b>Onest 400<br>--fs-stat · tabular</div><p style="margin:0;font-size:var(--fs-stat);font-weight:400;line-height:1;font-variant-numeric:tabular-nums">00% · 0 ч · 0 ₽</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Кнопки, метки, скругления ===== -->
+  <section class="section" id="controls">
+    <div class="container sg-block">
+      <div class="section-head" style="margin-bottom:0">
+        <span class="eyebrow">кнопки и метки</span>
+        <h2 class="h2">Всё, что нажимается, — таблетка. <span class="muted-part">Стрелка ↗ в кружке.</span></h2>
+      </div>
+
+      <div>
+        <p class="sg-label">Кнопки</p>
+        <div class="sg-row">
+          <a class="btn" href="#controls">Написать в Telegram <span class="btn__arrow" aria-hidden="true">↗</span></a>
+          <a class="btn btn--lime" href="#controls">Узнать подробнее <span class="btn__arrow" aria-hidden="true">↗</span></a>
+          <a class="btn btn--outline" href="#controls">Смотреть кейсы <span class="btn__arrow" aria-hidden="true">↗</span></a>
+          <a class="btn btn--plain" href="#controls">Без стрелки</a>
+          <a class="btn btn--sm" href="#controls">Компактная <span class="btn__arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+
+      <div>
+        <p class="sg-label">Метки</p>
+        <div class="sg-row">
+          <span class="eyebrow">этапы работы</span>
+          <span class="chip">1–2 недели</span>
+          <span class="chip">фиксированная цена</span>
+          <span class="chip chip--lime">зачёт в пилот</span>
+          <span class="chip chip--outline">Операционка</span>
+          <span class="chip chip--active">Закрытый контур</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="sg-label">Скругления</p>
+        <div class="sg-row" style="align-items:flex-end">
+          <div class="radius-demo" style="border-radius:var(--r-xs)">6 · xs</div>
+          <div class="radius-demo" style="border-radius:var(--r-md)">16 · md</div>
+          <div class="radius-demo" style="border-radius:var(--r-lg)">24 · lg</div>
+          <div class="radius-demo" style="border-radius:var(--r-xl)">32 · xl</div>
+          <div class="radius-demo" style="border-radius:var(--r-pill);width:140px;height:56px">pill</div>
+        </div>
+      </div>
+
+      <div>
+        <p class="sg-label">Отступы, шаг 4 px</p>
+        <div class="scale" aria-label="Шкала отступов">
+          <div style="width:4px;height:48px"></div><div style="width:8px;height:48px"></div><div style="width:12px;height:48px"></div><div style="width:16px;height:48px"></div><div style="width:24px;height:48px"></div><div style="width:32px;height:48px"></div><div style="width:48px;height:48px"></div><div style="width:64px;height:48px"></div><div style="width:96px;height:48px"></div><div style="width:128px;height:48px"></div>
+        </div>
+        <p class="small" style="margin-top:var(--space-3)">--space-1 … --space-10: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128. Секции разделяются по вертикали токеном --section-y.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Плитки ===== -->
+  <section class="section section--wash" id="tiles">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">плитки</span>
+        <h2 class="h2">Сетка из плиток. <span class="muted-part">Одна лаймовая, одна чёрная, остальные тихие.</span></h2>
+      </div>
+
+      <div class="bento">
+        <article class="tile tile--lime">
+          <span class="spark" aria-hidden="true" style="background:var(--ink-950);width:40px"></span>
+          <h3 class="tile__title" style="margin-top:auto">Расчёт до начала</h3>
+          <p class="tile__text">Лаймовая плитка. Одна на ряд.</p>
+        </article>
+        <article class="tile">
+          <h3 class="tile__title">Белая плитка</h3>
+          <p class="tile__text">Основной вариант на дымчатом фоне. Без обводки и тени.</p>
+        </article>
+        <article class="tile tile--grey">
+          <h3 class="tile__title">Серая плитка</h3>
+          <p class="tile__text">Для сплошных рядов, где белый сливается с фоном.</p>
+        </article>
+        <article class="tile tile--ink tile--tall">
+          <h3 class="h3" style="margin:0">Проверить, окупится ли автоматизация</h3>
+          <p class="tile__text">Чёрная плитка с призывом. Одна на всю сетку.</p>
+          <a class="btn btn--lime btn--sm" style="margin-top:auto;align-self:flex-start" href="#tiles">Подробнее <span class="btn__arrow" aria-hidden="true">↗</span></a>
+        </article>
+
+        <article class="tile tile--span-2 tile--grey">
+          <h3 class="tile__title">Широкая плитка</h3>
+          <p class="tile__text">Занимает две колонки. Подходит для описания метода или схемы.</p>
+        </article>
+        <article class="tile tile--strong">
+          <h3 class="tile__title">Выделенная серая</h3>
+          <p class="tile__text">Подсвечивает один элемент среди одинаковых.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Шаги, метрики, продукт ===== -->
+  <section class="section" id="steps">
+    <div class="container sg-block" style="gap:var(--space-9)">
+
+      <div>
+        <div class="section-head">
+          <span class="eyebrow">этапы работы</span>
+          <h2 class="h2">Системный и быстрый подход <span class="muted-part">к&nbsp;автоматизации вашего бизнеса</span></h2>
+        </div>
+        <div class="bento">
+          <article class="tile step"><span class="step__index">/01</span><div class="step__body"><h3 class="tile__title">Аудит как есть</h3><span class="chip">срок называем на звонке</span><p class="tile__text">Описываем, как процесс работает сейчас: шаги, люди, системы, потери времени.</p></div></article>
+          <article class="tile step"><span class="step__index">/02</span><div class="step__body"><h3 class="tile__title">Карта автоматизации</h3><span class="chip">фиксированная цена</span><p class="tile__text">Отмечаем, что автоматизировать стоит, а что нет, и считаем эффект в часах и деньгах.</p></div></article>
+          <article class="tile step"><span class="step__index">/03</span><div class="step__body"><h3 class="tile__title">Базовые цифры и KPI</h3><span class="chip">до внедрения</span><p class="tile__text">Фиксируем исходные показатели, чтобы потом было с чем сравнивать.</p></div></article>
+          <article class="tile step tile--strong"><span class="step__index">/04</span><div class="step__body"><h3 class="tile__title">Внедрение</h3><span class="chip">по плану из карты</span><p class="tile__text">Запускаем только то, что прошло расчёт. Результат сверяем с KPI.</p></div></article>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-head">
+          <span class="eyebrow">метрики</span>
+          <h2 class="h2">Крупная цифра, <span class="muted-part">короткая подпись</span></h2>
+        </div>
+        <div class="bento">
+          <article class="tile tile--grey stat"><span class="stat__value">00%</span><div><h3 class="tile__title">Название метрики</h3><p class="tile__text">Подпись из одного-двух предложений.</p></div></article>
+          <article class="tile tile--strong stat"><span class="stat__value">0 ч</span><div><h3 class="tile__title">Часов в неделю</h3><p class="tile__text">Выделенная серая плитка.</p></div></article>
+          <article class="tile tile--lime stat tile--span-2"><span class="stat__value">00 %</span><div><h3 class="tile__title">Главная метрика</h3><p class="tile__text">Лаймовая плитка на две колонки. Значения здесь заглушки: реальных цифр клиентов нет, придумывать их нельзя.</p></div></article>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-head">
+          <span class="eyebrow">продукт</span>
+          <h2 class="h2">Карточка продукта <span class="muted-part">с кнопкой внизу</span></h2>
+        </div>
+        <div class="bento">
+          <article class="tile plan">
+            <span class="step__index">/01</span>
+            <h3 class="tile__title">Карта автоматизации</h3>
+            <span class="chip">фиксированная цена и срок</span>
+            <ul class="plan__list"><li>Аудит как есть</li><li>Карта: что автоматизировать, а что нет</li><li>Расчёт эффекта и KPI</li><li>Стоимость засчитывается при переходе в пилот</li></ul>
+            <div class="plan__foot"><a class="btn" href="https://t.me/kenig_web" target="_blank" rel="noopener noreferrer">Обсудить <span class="btn__arrow" aria-hidden="true">↗</span></a></div>
+          </article>
+          <article class="tile plan tile--strong">
+            <span class="step__index">/02</span>
+            <h3 class="tile__title">Пилот</h3>
+            <span class="chip">по итогам карты</span>
+            <ul class="plan__list"><li>Один процесс из карты</li><li>Сверка с базовыми цифрами</li><li>Решение о масштабировании</li></ul>
+            <div class="plan__foot"><a class="btn" href="https://t.me/kenig_web" target="_blank" rel="noopener noreferrer">Обсудить <span class="btn__arrow" aria-hidden="true">↗</span></a></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Декор ===== -->
+  <section class="section section--wash" id="decor">
+    <div class="container sg-block">
+      <div class="section-head" style="margin-bottom:0">
+        <span class="eyebrow">декор</span>
+        <h2 class="h2">Крупные формы и ч/б фото. <span class="muted-part">Один приём на экран.</span></h2>
+      </div>
+      <div class="bento">
+        <div class="tile deco-stage"><div class="rays" aria-hidden="true"></div></div>
+        <div class="tile deco-stage"><span class="spark" aria-hidden="true" style="width:120px"></span></div>
+        <div class="tile deco-stage" style="padding:32px"><div class="photo photo--ring" style="width:min(100%,180px)"><div class="ph" style="height:100%;aspect-ratio:1"></div></div></div>
+        <div class="tile deco-stage"><div class="photo" style="width:min(100%,160px)"><div class="ph"></div></div></div>
+      </div>
+      <p class="ph-note">Слева направо: лучи за заголовком, искра между фото, круглое фото с лаймовым кольцом, ч/б фото. Серые прямоугольники — заглушки. Для 3D-объекта (хромовая звезда) используем существующую модель models/saas-stars.glb с хромовым материалом.</p>
+    </div>
+  </section>
+
+  <!-- ===== Правила ===== -->
+  <section class="section" id="rules">
+    <div class="container sg-block">
+      <div class="section-head" style="margin-bottom:0">
+        <span class="eyebrow">правила</span>
+        <h2 class="h2">Что держит стиль <span class="muted-part">в одном виде</span></h2>
+      </div>
+      <div class="rule-grid">
+        <div class="tile tile--lime">
+          <h3 class="tile__title">Делаем</h3>
+          <ul class="rule-list rule-list--do">
+            <li>Лайм только заливкой под чёрным текстом или крупным декоративным словом.</li>
+            <li>Заголовок в две краски: начало чёрное, окончание серое.</li>
+            <li>Над секцией ставим лаймовую плашку со строчной подписью.</li>
+            <li>Шаги нумеруем «/01», только если порядок важен.</li>
+            <li>В сетке одна лаймовая и не более одной чёрной плитки.</li>
+            <li>Фото только чёрно-белые.</li>
+          </ul>
+        </div>
+        <div class="tile tile--ink">
+          <h3 class="tile__title">Не делаем</h3>
+          <ul class="rule-list rule-list--dont">
+            <li>Не пишем мелкий текст лаймом или бледно-серым на белом.</li>
+            <li>Не добавляем второй акцентный цвет. Кобальт допустим в одном блоке на страницу.</li>
+            <li>Не вешаем тени и обводки на каждую плитку.</li>
+            <li>Не используем Unbounded для абзацев и кнопок.</li>
+            <li>Не ставим на экран больше одного крупного декора.</li>
+            <li>Не придумываем цифры клиентов и отзывы.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="container" style="padding-block:var(--space-7)">
+    <p class="small">Дизайн-система «Лайм и чернила». Основа — папка РЕФЕРЕНСЫ. Файлы: tokens.css, components.css, README.md.</p>
+  </footer>
+
+</body>
+</html>

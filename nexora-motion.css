@@ -1,0 +1,63 @@
+/* Nexora motion layer ported onto the agency page: inertial scroll, masked line reveals,
+   dot-grid hero, scroll-driven 3D star, feature-card entrance, timeline reveal. */
+:root{--ui-font:Manrope;--reveal-ease:cubic-bezier(.22,1,.36,1);scroll-behavior:smooth}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){:root,html{scroll-behavior:auto}}
+.site-header{z-index:20}
+/* masked line reveal (identical to Nexora) */
+.rm{display:block;overflow:hidden;padding:.04em .05em .16em;margin:-.04em -.05em -.16em}
+.rm-i{display:block;transform:translateY(0);opacity:1;transition:transform .85s var(--reveal-ease),opacity .85s var(--reveal-ease);will-change:transform}
+.rw{display:inline-block}
+@media(prefers-reduced-motion:no-preference){
+  .reveal-js [data-rv]{opacity:0}
+  .reveal-js [data-rv].on,.reveal-js [data-rv][data-split]{opacity:1}
+  .reveal-js [data-split]:not(.on):not([data-rv="star"]) .rm-i{transform:translateY(115%);opacity:.35}
+}
+@keyframes rise-in{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.rise{animation:rise-in .9s .5s var(--reveal-ease) both}
+/* hero */
+.hero .dot-grid{background:transparent}
+.hero-topline,.hero-content,.hero-bottom{z-index:10}
+.hero h1 .line{display:block}
+.hero h1 .dim,h2 .dim{color:#8e949e}
+.hero h1 .line{color:#f6f6f2}.hero h1 .line.dim{color:#8e949e}
+.star-origin{position:absolute;right:2%;bottom:6%;width:50%;height:74%;pointer-events:none}
+.webgl-stage{position:fixed;inset:0;z-index:5;pointer-events:none}
+.webgl-stage canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+/* problems = Nexora "features" */
+.features{--feature-background:#f3f3ef;--feature-card:rgba(232,233,228,.85);--feature-card-hover:rgba(224,225,220,.9);padding-top:140px;font-family:Manrope,Arial,sans-serif;letter-spacing:-.05em}
+.features-eyebrow{position:relative;z-index:10;margin-bottom:28px}
+.features-title{font-size:clamp(54px,5.85vw,88px);letter-spacing:-.065em;line-height:1.02;font-weight:600;margin-bottom:72px}
+.features-title span{display:block}
+.feature-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.feature-card{min-height:400px;padding:clamp(24px,2vw,32px)}
+.feature-copy{margin-top:70px}
+.feature-copy p{font-size:clamp(19px,1.6vw,24px);line-height:1.18;min-height:0}
+.reveal-js .feature-card:nth-child(4){--ci:3}
+.features-foot{position:relative;z-index:10;max-width:1480px;margin:90px 0 0}
+.features-foot .statement{margin-top:70px}
+@media(max-width:1000px){.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.feature-card{min-height:320px}.features-title{font-size:clamp(40px,8vw,64px)}}
+@media(max-width:700px){.feature-grid{grid-template-columns:1fr;grid-auto-rows:auto}.feature-card{min-height:260px}.feature-copy{margin-top:48px}.feature-copy p{font-size:22px}.features{padding-top:110px}.star-origin{right:0;width:100%;height:40%;bottom:5%}}
+/* method = Nexora timeline, dark palette */
+.process{--process-paper:#0c0d10;--process-ink:#f6f6f2;--step-surface:#16191e;--step-active:#1e222a;--rail-active:#b9d0fb;font-family:Manrope,Arial,sans-serif;padding-top:140px}
+.process-title{font-size:clamp(46px,6.25vw,96px);letter-spacing:-.065em;line-height:1.02;font-weight:600;color:var(--process-ink)}
+.process-intro{position:relative;z-index:10;text-align:center;max-width:560px;margin:-60px auto 100px;color:#b7bbc1}
+.step-number{background:#2a2e36;color:#f6f6f2}
+.timeline-copy h3{letter-spacing:-.04em;color:#c2d7ff}
+.timeline-copy p{color:#b7bbc1}
+.timeline-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.timeline-card:nth-child(odd) .timeline-meta{justify-content:flex-end}
+.timeline-copy .method-time{font-size:10px;letter-spacing:.09em;color:#8a9099;text-align:inherit}
+.timeline-copy ul{margin:14px 0 0;padding-left:18px;text-align:left;color:#b7bbc1;font-size:14px;line-height:1.45}
+.timeline-copy li{margin:7px 0}
+.timeline-copy .note{margin:18px 0 0;padding-left:14px;border-left:2px solid #b9d0fb;text-align:left;font-size:14px;color:#e6e8e9}
+.timeline-card:nth-child(odd) .timeline-copy .note{}
+.timeline-card{min-height:var(--step-height)}
+.timeline-card:has(ul){padding-block:16px}
+.process{--step-height:260px}
+@media(max-width:700px){.process-intro{margin:-40px auto 70px}.timeline-copy ul,.timeline-copy .note{font-size:12px}}
+/* keep legacy span rules from leaking into split lines */
+.rm,.rm-i,.rw{font-size:inherit;color:inherit;letter-spacing:inherit;line-height:inherit;font-weight:inherit}
+.final h2 span,.hero h1 span,h2 span{color:inherit}
+.final h2 .dim,h2 .dim,.hero h1 .line.dim{color:#8e949e}
+.features-title .dim{color:#8a8d8a}
+.statement p .rm,.statement p .rm-i,.statement p .rw{font-size:inherit;color:inherit}

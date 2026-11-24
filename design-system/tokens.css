@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Дизайн-система «Лайм и чернила» — токены
+   Источник: папка РЕФЕРЕНСЫ (светлый стиль, кислотный лайм + чёрный,
+   ч/б фото, хромовое 3D). Тема одна, светлая.
+
+   Шрифты подключаются в <head> страницы (кириллица обязательна):
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600&family=Unbounded:wght@500;700&display=swap&subset=cyrillic">
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* ---------- Примитивы: чернила и бумага ---------- */
+  --ink-950: #0b0b0b;   /* почти чёрный: заголовки, кнопки, тёмные плитки */
+  --ink-800: #232323;
+  --ink-600: #6a6a6a;   /* второстепенный текст, контраст 5.3:1 на белом */
+  --ink-400: #8e8e8e;   /* только крупный текст (вторая половина заголовка) */
+
+  --paper-0:   #ffffff;
+  --paper-50:  #f8f8f8; /* основной фон страницы */
+  --paper-100: #f0f0f0; /* серые плитки */
+  --paper-200: #e6e6e6;
+  --paper-300: #d9d9d9; /* «выделенная» серая плитка, разделители */
+
+  /* ---------- Примитивы: лайм (единственный акцент) ---------- */
+  --lime-100: #f4fcd6;  /* лёгкая заливка */
+  --lime-200: #e3f99b;  /* дымка на фоне */
+  --lime-500: #ccf52b;  /* плашки, кнопки, карточки */
+  --lime-600: #b9f500;  /* гигантские слова, лучи, декор */
+
+  /* ---------- Редкий контраст (один блок на страницу, не больше) ---------- */
+  --cobalt-600: #1b2fd8;
+
+  /* ---------- Семантические цвета ---------- */
+  --bg:             var(--paper-50);
+  --bg-raised:      var(--paper-0);
+  --surface:        var(--paper-0);
+  --surface-muted:  var(--paper-100);
+  --surface-strong: var(--paper-300);
+  --surface-ink:    var(--ink-950);
+  --surface-accent: var(--lime-500);
+
+  --text:           var(--ink-950);
+  --text-muted:     var(--ink-600);
+  --text-faint:     var(--ink-400);   /* не для мелкого текста */
+  --text-on-ink:    var(--paper-0);
+  --text-on-accent: var(--ink-950);   /* на лайме текст всегда чёрный */
+
+  --accent:         var(--lime-500);
+  --accent-deep:    var(--lime-600);
+  --accent-soft:    var(--lime-200);
+
+  --line:           rgba(11, 11, 11, 0.1);
+  --line-strong:    rgba(11, 11, 11, 0.85);
+  --focus:          var(--ink-950);
+
+  /* ---------- Фон-«дымка» с лаймовыми пятнами ---------- */
+  --wash-lime:
+    radial-gradient(60% 45% at 18% 0%, rgba(204, 245, 43, 0.42), transparent 70%),
+    radial-gradient(45% 40% at 92% 28%, rgba(204, 245, 43, 0.26), transparent 70%),
+    radial-gradient(55% 40% at 40% 100%, rgba(227, 249, 155, 0.5), transparent 70%),
+    var(--bg);
+
+  /* ---------- Шрифты ---------- */
+  --font-text:    "Onest", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "Onest", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-accent:  "Unbounded", "Onest", ui-sans-serif, system-ui, sans-serif; /* только гигантские слова и цифры */
+
+  /* ---------- Размеры шрифта (fluid) ---------- */
+  --fs-ghost:   clamp(5.5rem, 21vw, 17rem);
+  --fs-display: clamp(2.75rem, 7vw, 5.5rem);
+  --fs-h1:      clamp(2.25rem, 4.8vw, 4rem);
+  --fs-h2:      clamp(1.875rem, 3.6vw, 3rem);
+  --fs-h3:      clamp(1.25rem, 1.8vw, 1.5rem);
+  --fs-lead:    clamp(1.0625rem, 1.3vw, 1.25rem);
+  --fs-body:    1rem;
+  --fs-small:   0.875rem;
+  --fs-micro:   0.75rem;
+  --fs-index:   clamp(2rem, 3.4vw, 2.75rem);   /* «/01» */
+  --fs-stat:    clamp(2.5rem, 4.4vw, 3.75rem); /* «95%» */
+
+  --lh-tight:  1.02;
+  --lh-head:   1.08;
+  --lh-snug:   1.25;
+  --lh-body:   1.55;
+
+  --tracking-display: -0.04em;
+  --tracking-head:    -0.03em;
+  --tracking-text:    -0.005em;
+  --tracking-micro:    0.01em;
+
+  --fw-light:   300;
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semi:    600;
+
+  /* ---------- Отступы (шаг 4px) ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  --gutter:      max(16px, env(safe-area-inset-left, 0px));
+  --container:   1240px;
+  --section-y:   clamp(72px, 10vw, 144px);
+  --grid-gap:    clamp(10px, 1.4vw, 16px);
+
+  /* ---------- Скругления ---------- */
+  --r-xs:   6px;    /* мелкие чипы и плотные плитки */
+  --r-md:   16px;   /* карточки и поля */
+  --r-lg:   24px;   /* крупные карточки, блоки */
+  --r-xl:   32px;   /* секции-плашки, фото */
+  --r-pill: 999px;  /* кнопки, метки, фильтры */
+
+  /* ---------- Тени (почти невидимые) ---------- */
+  --shadow-card: 0 1px 2px rgba(11, 11, 11, 0.04), 0 14px 36px -16px rgba(11, 11, 11, 0.16);
+  --shadow-float: 0 2px 4px rgba(11, 11, 11, 0.05), 0 28px 60px -20px rgba(11, 11, 11, 0.22);
+
+  /* ---------- Движение ---------- */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 160ms;
+  --dur-base: 320ms;
+  --dur-slow: 700ms;
+
+  /* ---------- Слои ---------- */
+  --z-nav: 50;
+  --z-overlay: 100;
+}

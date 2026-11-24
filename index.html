@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Наводим порядок в процессах компании и закрепляем его в программах: автоматизация рутины, единые расчёты, интеграция CRM, сайты и CRM под ключ. Начинаем с аудита.">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>Порядок в процессах компании | Автоматизация бизнеса</title>
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600&family=Unbounded:wght@500;700&display=swap&subset=cyrillic">
+  <link rel="stylesheet" href="design-system/tokens.css">
+  <link rel="stylesheet" href="design-system/components.css">
+  <link rel="stylesheet" href="home.css">
+  <script src="home.js" defer></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="index.html">АВТОМАТИЗАЦИЯ<span> / агентство</span></a>
+        <nav class="nav__links" aria-label="Основная навигация">
+          <a href="#services">Что делаем</a>
+          <a href="#cases">Кейсы</a>
+          <a href="#method">Как работаем</a>
+          <a href="#team">Команда</a>
+          <a href="#faq">Вопросы</a>
+        </nav>
+        <a class="btn btn--sm header-cta" href="https://t.me/kenig_web" target="_blank" rel="noopener noreferrer">Обсудить проект <span class="btn__arrow" aria-hidden="true">↗</span></a>
+        <details class="mobile-menu">
+          <summary class="btn btn--sm btn--plain" aria-label="Открыть меню">Меню</summary>
+          <nav aria-label="Мобильная навигация">
+            <a href="#services">Что делаем</a>
+            <a href="#cases">Кейсы</a>
+            <a href="#method">Как работаем</a>
+            <a href="#team">Команда</a>
+            <a href="#faq">Вопросы</a>
+            <a href="https://t.me/kenig_web" target="_blank" rel="noopener noreferrer">Заказать аудит ↗</a>
+          </nav>
+        </details>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== 4.1 Первый экран ===== -->
+    <section class="section section--wash hero has-ghost" id="top" aria-labelledby="hero-title">
+      <div class="rays" aria-hidden="true"></div>
+      <div class="container hero__content">
+        <h1 class="display hero__title" id="hero-title">Ускоряем бизнес-процессы <span class="muted-part">и освобождаем время для роста</span></h1>
+        <p class="lead hero__lead">Превращаем неэффективные цифровые процессы в работающие бизнес-инструменты. Автоматизируем рутину, объединяем разрозненные системы и делаем работу компании в разы быстрее.</p>
+        <div class="hero__actions">
+          <a class="btn" href="https://t.me/kenig_web" target="_blank" rel="noopener noreferrer">Обсудить проект <span class="btn__arrow" aria-hidden="true">↗</span></a>
+          <a class="btn btn--outline" href="#cases">Посмотреть кейсы <span class="btn__arrow" aria-hidden="true">↓</span></a>
+        </div>
+        <ul class="facts" aria-label="Коротко о нас">
+          <li><span class="facts__dot"></span>5 лет</li>
+          <li><span class="facts__dot"></span>40+ проектов</li>
+          <li><span class="facts__dot"></span>производство, дистрибуция, услуги</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 4.2 Узнаёте свою компанию? ===== -->
+    <section class="section" id="problems" aria-labelledby="problems-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">это про вас?</span>
+          <h2 class="h2" id="problems-title">Узнаёте свою компанию? <span class="muted-part">Так выглядит бизнес, который работает не на полную мощность.</span></h2>
+        </div>
+        <div class="grid-6">
+          <article class="tile tile--lime problem span-2" data-label="наблюдение" role="button"tabindex="0" aria-haspopup="dialog" data-solution="Многие внедряют ИИ, собирают автоматизации. Но между ответом нейросети и результатом по-прежнему стоит человек. Проблема не в ИИ. Проблема в том, как его внедрили." data-service="Операционный аудит" data-link="services/audit.html" data-reveal>
+            <span class="step__index" aria-hidden="true">/01</span>
+            <p class="tile__title problem__text">ИИ в компании уже есть. А ожидаемого ускорения работы нет.</p><span class="problem__flip" aria-hidden="true">↻</span>
+          </article>
+          <article class="tile problem span-2" role="button" tabindex="0" aria-haspopup="dialog" data-solution="Часть процессов автоматизируем. Освобождаем время сотрудников от рутины, которое можно направить туда, где они действительно создают ценность и рост для бизнеса." data-service="Интеграция CRM" data-link="services/crm-integration.html" data-reveal>
+            <span class="step__index" aria-hidden="true">/02</span>
+            <p class="tile__title problem__text">Прибыль выросла на 20%, а ФОТ на 30%. Зарабатываете больше, но оставляете себе меньше.</p><span class="problem__flip" aria-hidden="true">↻</span>
+          </article>
+          <article class="tile tile--grey problem span-2" role="button" tabindex="0" aria-haspopup="dialog" data-solution="Собираем регламенты и опыт сотрудников в базу знаний, формируя RAG-систему. Знания остаются в компании, даже если человек уходит." data-service="Комплексная автоматизация" data-link="services/automation.html" data-reveal>
+            <span class="step__index" aria-hidden="true">/03</span>
+            <p class="tile__title problem__text">Всё держится на паре опытных сотрудников: ушёл человек — ушли знания.</p><span class="problem__flip" aria-hidden="true">↻</span>
+          </article>
+          <article class="tile tile--grey problem span-2" data-label="наблюдение" role="button" tabindex="0" aria-haspopup="dialog" data-solution="Время тратится не на задачи, а на управление программами. Проблема не в количестве инструментов. Проблема в том, что они не работают как единый механизм." data-service="Интеграция CRM" data-link="services/crm-integration.html" data-reveal>
+            <span class="step__index" aria-hidden="true">/04</span>
+            <p class="tile__title problem__text">Десятки подписок. Для каждой задачи — своя программа. Для связи между ними — сотрудник.</p><span class="problem__flip" aria-hidden="true">↻</span>
+          </article>
+          <article class="tile problem span-2" role="button" tabindex="0" aria-haspopup="dialog" data-solution="Внедряем механизмы, где данные собираются автоматически, показатели рассчитываются по единым правилам, а расхождения обнаруживаются до того, как попадут в отчёт." data-service="Комплексная автоматизация" data-link="services/automation.html" data-reveal>
+            <span class="step__index" aria-hidden="true">/05</span>
+            <p class="tile__title problem__text">Цифры в отчётах красивые. Пока не начинаешь их проверять. Итог — постоянный контроль.</p><span class="problem__flip" aria-hidden="true">↻</span>
+          </article>
+          <article class="tile tile--ink problem span-2" role="button" tabindex="0" aria-haspopup="dialog" data-solution="Мы не про увольнения. Наша цель — привести в порядок цифровые процессы компании и снять с вашей команды рутину, освободив их энергию на развитие компании." data-service="Операционный аудит" data-link="services/audit.html" data-reveal>
+            <span class="step__index" aria-hidden="true">/06</span>
+            <p class="tile__title problem__text">Как внедрить изменения в бизнес, чтобы сотрудники не сопротивлялись новому?</p><span class="problem__flip" aria-hidden="true">↻</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4.3 Что делаем ===== -->
+    <section class="section section--wash" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">что делаем</span>
+          <h2 class="h2" id="services-title">Автоматизируем процессы <span class="muted-part">и разрабатываем под ключ</span></h2>
+        </div>
+        <div class="acc">
+          <article class="svc svc--ink is-active" data-reveal>
+            <div class="svc__top">
+              <ul class="svc__pills">
+                <li class="svc__pill"><i></i>Автоматизация</li>
+              </ul>
+              <span class="svc__go" aria-hidden="true">→</span>
+            </div>
+            <div class="chrome" style="--rot:-9deg;--pos:0%" aria-hidden="true"></div>
+            <div class="svc__body">
+              <h3 class="svc__title">Комплексная автоматизация</h3>
+              <p class="svc__text">Цифровой аудит. Перестраиваем управление, хранение знаний и данных компании. Начинаем с построения карты автоматизации и установки KPI.</p>
+              <a class="btn btn--white svc__btn" href="services/automation.html"><span>Подробнее<span class="svc__ext">&nbsp;и кейсы</span></span> <span class="btn__arrow" aria-hidden="true">→</span></a>
+            </div>
+          </article>
+          <article class="svc svc--ink" data-reveal>
+            <div class="svc__top">
+              <ul class="svc__pills">
+                <li class="svc__pill"><i></i>Аудит</li>
+                <li class="svc__pill svc__pill--price"><i></i>от 48 000 ₽</li>
+              </ul>
+              <span class="svc__go" aria-hidden="true">→</span>
+            </div>
+            <div class="chrome" style="--rot:7deg;--pos:100%" aria-hidden="true"></div>
+            <div class="svc__body">
+              <h3 class="svc__title">Операционный аудит</h3>
+              <p class="svc__text">Проводим быструю 7-дневную инспекцию ваших цифровых процессов. Определяем текущие временные и денежные потери.</p>
+              <a class="btn btn--white svc__btn" href="services/audit.html"><span>Подробнее<span class="svc__ext">&nbsp;и кейсы</span></span> <span class="btn__arrow" aria-hidden="true">→</span></a>
+            </div>
+          </article>
+          <article class="svc svc--lime" data-reveal>
+            <div class="svc__top">
+              <ul class="svc__pills">
+                <li class="svc__pill"><i></i>Внедрение</li>
+                <li class="svc__pill svc__pill--price"><i></i>от 400 000 ₽</li>
+              </ul>
+              <span class="svc__go" aria-hidden="true">↗</span>
+            </div>
+            <div class="chrome" style="--rot:-5deg;--pos:50%" aria-hidden="true"></div>
+            <div class="svc__body">
+              <h3 class="svc__title">Локальные ИИ модели</h3>
+              <p class="svc__text">Внедряем безопасный ИИ-контур под ключ. Проводим точный расчёт требуемой инфраструктуры. Подключаем существующие программные инструменты.</p>
+              <a class="btn svc__btn" href="services/local-ai.html"><span>Подробнее<span class="svc__ext">&nbsp;и кейсы</span></span> <span class="btn__arrow" aria-hidden="true">→</span></a>
+            </div>
+          </article>
+          <article class="svc svc--white" data-reveal>
+            <div class="svc__top">
+              <ul class="svc__pills">
+                <li class="svc__pill"><i></i>Разработка</li>
+              </ul>
+              <span class="svc__go" aria-hidden="true">↗</span>
+            </div>
+            <div class="chrome" style="--rot:-6deg;--pos:30%" aria-hidden="true"></div>
+            <div class="svc__body">
+              <h3 class="svc__title">Разработка под ключ</h3>
+              <p class="svc__text">Кастомные CRM под ваш бизнес, веб-приложения и телеграм-боты любой сложности. Интегрируем с вашей инфраструктурой.</p>
+              <a class="btn  svc__btn" href="services/websites.html"><span>Подробнее<span class="svc__ext">&nbsp;и кейсы</span></span> <span class="btn__arrow" aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4.4 Лучшие кейсы ===== -->
+    <section class="section" id="cases" aria-labelledby="cases-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">наши кейсы</span>
+          <h2 class="h2" id="cases-title">Что менялось <span class="muted-part">у наших клиентов</span></h2>
+        </div>
+        <div class="carousel" data-carousel>
+        <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Предыдущие кейсы"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="carousel__track" tabindex="0" aria-label="Кейсы клиентов">
+
+          <article class="tile case" data-reveal>
+            <div class="case__head">
+              <a class="chip chip--lime case__tag" href="services/automation.html">Локальный ИИ-контур ↗</a>
+              <h3 class="tile__title">Клиника репродукции</h3>
+            </div>
+            <dl>
+              <div><dt>Было</dt><dd>Компания достаточно успешно внедрила ИИ в процессы, но обработка ПДН и биометрии не соответствовали 152ФЗ.</dd></div>
+              <div><dt>Сделали</dt><dd>Подобрали инфраструктуру и развернули собственную модель. Совместно с IT-командой компании выполнили подключение к используемым инструментам.</dd></div>
+            </dl>
+            <p class="case__result"><span>Стало</span>Компании больше не грозят штрафы</p>
+          </article>
+
+          <article class="tile tile--grey case" data-reveal>
+            <div class="case__head">
+              <a class="chip chip--lime case__tag" href="services/crm-integration.html">Автоматизация расчёта КП ↗</a>
+              <h3 class="tile__title">Мебельное производство</h3>
+            </div>
+            <dl>
+              <div><dt>Было</dt><dd>Собственник лично рассчитывал сложные КП. Не мог доверить ответственные расчёты своему менеджеру. Весь цикл от обращения до конечного результата растягивался до 4-х дней.</dd></div>
+              <div><dt>Сделали</dt><dd>Систематизировали знания и правила расчётов. Построили команду цифровых сотрудников с системой контроля ошибок.</dd></div>
+            </dl>
+            <p class="case__result"><span>Стало</span>Цикл расчёта сократился до 3-5 часов</p>
+          </article>
+
+          <article class="tile case" data-reveal>
+            <div class="case__head">
+              <a class="chip chip--lime case__tag" href="services/websites.html">Разработка CRM ↗</a>
+              <h3 class="tile__title">Сеть автосервисов</h3>
+            </div>
+            <dl>
+              <div><dt>Было</dt><dd>Данные бизнеса и процессы "по старинке" находились в 50+ таблицах. Пробовали внедрить коробочную CRM, но столкнулись с ограничениями.</dd></div>
+              <div><dt>Сделали</dt><dd>Собрали все процессы и данные в кучу и собрали CRM с персональным функционалом под нужны конкретно этой бизнес-модели.</dd></div>
+            </dl>
+            <p class="case__result"><span>Стало</span>3 отчётные таблицы, а все процессы в CRM</p>
+          </article>
+
+          <article class="tile tile--grey case" data-reveal>
+            <div class="case__head">
+              <a class="chip chip--lime case__tag" href="services/automation.html">Ускорение аналитики ↗</a>
+              <h3 class="tile__title">Селлер на маркетплейсах</h3>
+            </div>
+            <dl>
+              <div><dt>Было</dt><dd>3 площадки, более 200 товаров. Ежедневная ручная аналитика продаж занимала у менеджеров 80% времени. Новые позиции = найм новых менеджеров.</dd></div>
+              <div><dt>Сделали</dt><dd>Создали систему: анализ платного хранения, сводные данные по продажам, аналитика конкурентов. Система одновременно анализирует все 3 площадки.</dd></div>
+            </dl>
+            <p class="case__result"><span>Стало</span>Сократили ФОТ на 40%, готовый отчёт за 1 час</p>
+          </article>
+
+          <article class="tile case" data-reveal>
+            <div class="case__head">
+              <a class="chip chip--lime case__tag" href="services/automation.html">Создание RAG-системы ↗</a>
+              <h3 class="tile__title">Служба поддержки</h3>
+            </div>
+            <dl>
+              <div><dt>Было</dt><dd>Крупная франшиза. Большое количество запросов в отдел саппорта. Среднее время обработки заявки 1 день, 38% ошибок в ответах и это уже с ИИ.</dd></div>
+              <div><dt>Сделали</dt><dd>Сформировали единую корпоративную базу знаний. Для ответов добавили проверки релевантности информации. Изменили формат использования ИИ в отделе.</dd></div>
+            </dl>
+            <p class="case__result"><span>Стало</span>Точность 98%, среднее время ответа 7 минут</p>
+          </article>
+
+          <article class="tile tile--grey case" data-reveal>
+            <div class="case__head">
+              <a class="chip chip--lime case__tag" href="services/websites.html">Разработка сайта ↗</a>
+              <h3 class="tile__title">Бренд одежды</h3>
+            </div>
+            <dl>
+              <div><dt>Было</dt><dd>У бренда был лендинг, куда ежедневно вручную приходилось вносить свежие данные по остаткам, а перед этим проанализировать позиции по всем площадкам, где продают товар.</dd></div>
+              <div><dt>Сделали</dt><dd>Реализовали не просто сайт, а веб-приложение, которое само выгружало остатки с площадок, в нём же внедрили сценарии взаимодействия с клиентами через тг-бота.</dd></div>
+            </dl>
+            <p class="case__result"><span>Стало</span>2 минуты ежедневно на проверку данных</p>
+          </article>
+
+        </div>
+        <button class="carousel__btn carousel__btn--next" type="button" aria-label="Следующие кейсы"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+        <!-- <p class="cases-more"><a class="link" href="cases.html">Ещё кейсы <span aria-hidden="true">→</span></a></p> -->
+      </div>
+    </section>
+
+    <!-- ===== 4.5 Как работаем ===== -->
+    <section class="section section--wash" id="method" aria-labelledby="method-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">как работаем</span>
+          <h2 class="h2" id="method-title">Автоматизация работает, <span class="muted-part">когда это показывают цифры</span></h2>
+          <p class="lead">От первого знакомства с вашими процессами до работающей системы, которая снимает рутину с команды и помогает бизнесу расти.</p>
+        </div>
+        <ol class="method" style="list-style:none;margin:0;padding:0" aria-label="Этапы работы">
+          <li class="method-row method-row--solo" data-reveal>
+            <span class="step__index" aria-hidden="true">/01</span>
+            <div class="method-row__main">
+              <h3 class="h3">Цифровой аудит</h3>
+              <span class="chip">1–2 недели</span>
+              <p class="tile__text">Мы ничего не внедряем, пока не разберёмся, как устроена работа компании: кто за что отвечает, где теряется время и какие задачи повторяются. Подготавливаем оцифровку ваших процессов и проверяем готовность данных к дальнейшей автоматизации.</p>
+            </div>
+          </li>
+          <li class="method-row method-row--key" data-reveal>
+            <span class="step__index" aria-hidden="true">/02</span>
+            <div class="method-row__main">
+              <h3 class="h3">Карта автоматизации и KPI</h3>
+              <span class="chip">1 неделя</span>
+              <p class="tile__text" style="color:var(--text)">Прагматизм и профит превыше всего. Внедряться должно только то, что работает в бизнесе прямо сейчас, повышает маржу и освобождает время. Формируем план автоматизации, обозначаем конкретные показатели меры успеха</p>
+            </div>
+          </li>
+          <li class="method-row method-row--solo" data-reveal>
+            <span class="step__index" aria-hidden="true">/03</span>
+            <div class="method-row__main">
+              <h3 class="h3">Создаём систему</h3>
+              <span class="chip">от 3 недель</span>
+              <p class="tile__text">Разрабатываем решения под конкретные задачи компании: связываем системы, настраиваем интеграции, создаём цифровых сотрудников и автоматизируем повторяющиеся операции.</p>
+            </div>
+          </li>
+          <li class="method-row method-row--solo" data-reveal>
+            <span class="step__index" aria-hidden="true">/04</span>
+            <div class="method-row__main">
+              <h3 class="h3">Внедряем и обучаем</h3>
+              <span class="chip">1–2 недели</span>
+              <p class="tile__text">Не оставляем вас один на один с новыми инструментами. Помогаем освоить изменения, следим за работой решений и постепенно замеряем эффективность.</p>
+            </div>
+          </li>
+          <li class="method-row method-row--solo" data-reveal>
+            <span class="step__index" aria-hidden="true">/05</span>
+            <div class="method-row__main">
+              <h3 class="h3">Сопровождение</h3>
+              <span class="chip">бессрочно</span>
+              <p class="tile__text">Остаёмся рядом после запуска. Никакой зависимости от подрядчиков, вся система разворачивается у вас и остаётся вашей собственностью.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 4.6 Команда ===== -->
+    <section class="section" id="team" aria-labelledby="team-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">команда</span>
+          <h2 class="h2" id="team-title">Четыре человека, <span class="muted-part">которые отвечают за результат</span></h2>
+        </div>
+        <div class="bento">
+          <article class="tile tile--lime team" data-reveal>
+            <span class="step__index" aria-hidden="true">/01</span>
+            <h3 class="tile__title">Аналитик и руководитель проектов</h3>
+            <p class="tile__text">Проводит аудит, строит карту автоматизации, отвечает за KPI. С него начинается любая работа.</p>
+          </article>
+          <article class="tile team" data-reveal>
+            <span class="step__index" aria-hidden="true">/02</span>
+            <h3 class="tile__title">Бэкенд-разработчик</h3>
+            <p class="tile__text">Логика, расчёты, интеграции: всё, что работает «под капотом».</p>
+          </article>
+          <article class="tile tile--grey team" data-reveal>
+            <span class="step__index" aria-hidden="true">/03</span>
+            <h3 class="tile__title">Фронтенд-разработчик</h3>
+            <p class="tile__text">Сайты, интерфейсы и админки, с которыми удобно работать каждый день.</p>
+          </article>
+          <article class="tile tile--ink team" data-reveal>
+            <span class="step__index" aria-hidden="true">/04</span>
+            <h3 class="tile__title">Тестировщик</h3>
+            <p class="tile__text">Проверяет, что всё работает и считает верно, до того как это увидите вы.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4.7 Вопросы ===== -->
+    <section class="section section--wash" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">вопросы</span>
+          <h2 class="h2" id="faq-title">Что обычно спрашивают <span class="muted-part">перед началом</span></h2>
+        </div>
+        <div class="faq">
+          <details><summary>С чего начать, если не знаем, что автоматизировать?<span class="plus" aria-hidden="true">+</span></summary><p>С аудита. Мы разберём процессы, замерим, где уходит время, и предложим, что автоматизировать в первую очередь.</p></details>
+          <details><summary>Окупится ли?<span class="plus" aria-hidden="true">+</span></summary><p>Окупаемость считаем на этапе карты автоматизации, до внедрения. Если расчёт не сходится, скажем об этом до начала работ.</p></details>
+          <details><summary>Зачем аудит, если проблема и так понятна?<span class="plus" aria-hidden="true">+</span></summary><p>Без него нельзя измерить результат: не с чем сравнивать. К тому же часто узкое место оказывается не там, где его видно.</p></details>
+          <details><summary>Где хранятся наши данные?<span class="plus" aria-hidden="true">+</span></summary><p>Данные клиентов не уходят за пределы компании и России; работаем по NDA. Подробности — на странице <a href="closed-contour.html">«Закрытый контур»</a>.</p></details>
+          <details><summary>Не станем ли мы зависимы от вас?<span class="plus" aria-hidden="true">+</span></summary><p>Нет. Документация, доступы, правила и инструкции остаются у вас.</p></details>
+          <details><summary>Кто будет поддерживать систему?<span class="plus" aria-hidden="true">+</span></summary><p>Мы — по договору поддержки. Ещё обучаем ваших сотрудников и передаём документацию.</p></details>
+          <details><summary>Работаете ли с нашей CRM?<span class="plus" aria-hidden="true">+</span></summary><p>Да: Битрикс24, amoCRM и другие.</p></details>
+          <details><summary>Делаете ли сайт отдельно от автоматизации?<span class="plus" aria-hidden="true">+</span></summary><p>Да, это отдельная услуга. Аудит процессов для сайта не нужен.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4.8 Финальный призыв ===== -->
+    <section class="section" aria-labelledby="final-title">
+      <div class="container">
+        <div class="final" data-reveal>
+          <div class="rays" aria-hidden="true"></div>
+          <span class="eyebrow">следующий шаг</span>
+          <h2 class="display final__title" id="final-title">Расскажите, где сейчас теряется время, <span class="muted-part">— предложим, с чего начать</span></h2>
+          <div class="final__row">
+            <div class="final__cta">
+              <a class="btn btn--lime" href="https://t.me/kenig_web" target="_blank" rel="noopener noreferrer">Написать в Telegram <span class="btn__arrow" aria-hidden="true">↗</span></a>
+            </div>
+            <p><strong style="color:var(--accent);font-weight:500">Что дальше.</strong> Ответ в течение рабочего дня → звонок на 30 минут → предложение по аудиту.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== 4.9 Подвал ===== -->
+  <footer class="container footer">
+    <a class="brand" href="index.html">АВТОМАТИЗАЦИЯ<span> / агентство</span></a>
+    <div class="footer__links">
+      <a href="closed-contour.html">Закрытый контур ↗</a>
+      <a href="https://t.me/kenig_web" target="_blank" rel="noopener noreferrer">Telegram ↗</a>
+      <a href="#top">Наверх ↑</a>
+    </div>
+  </footer>
+
+</body>
+</html>

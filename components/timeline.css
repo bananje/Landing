@@ -1,0 +1,159 @@
+.process {
+  --process-paper: #f7f7f5;
+  --process-ink: #111111;
+  --step-surface: #efefef;
+  --step-active: #e8e8e8;
+  --rail-active: #000000;
+  --axis-gap: 56px;
+  --step-height: 280px;
+  --rail-x: 50%;
+  position: relative;
+  background: var(--process-paper);
+  color: var(--process-ink);
+  color-scheme: light;
+  padding: 160px var(--edge) max(160px, 38svh);
+}
+.process-title {
+  position: relative;
+  z-index: 10;
+  margin: 0 auto 120px;
+  width: max-content;
+  max-width: 100%;
+  text-align: center;
+  font-size: clamp(72px, 6.25vw, 96px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -.05em;
+}
+.process-title span { display: block; }
+.timeline { position: relative; }
+.timeline-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.timeline-card {
+  position: relative;
+  min-height: var(--step-height);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: calc(var(--axis-gap) * 2);
+  align-items: center;
+  padding: 0 32px;
+}
+/* Surfaces, rail, WebGL stars, and copy occupy independent layers.
+   No stacking context on the row: the same global star sits over its surface. */
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 56px;
+  background: var(--step-surface);
+  transition: background-color .35s ease, opacity .6s cubic-bezier(.22, 1, .36, 1), transform .6s cubic-bezier(.22, 1, .36, 1);
+}
+.timeline-card[aria-current="step"]::before { background: var(--step-active); }
+.timeline-copy {
+  position: relative;
+  z-index: 10;
+  grid-row: 1;
+  width: min(100%, 420px);
+  padding: 28px 0;
+}
+.timeline-card:nth-child(odd) .timeline-copy { grid-column: 1; justify-self: end; text-align: right; }
+.timeline-card:nth-child(even) .timeline-copy { grid-column: 2; justify-self: start; text-align: left; }
+.timeline-meta { margin-bottom: 20px; }
+.step-number {
+  display: inline-flex;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: #ffffff;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.03em;
+}
+.timeline-icon-shell {
+  position: relative;
+  z-index: 10;
+  grid-row: 1;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  background: linear-gradient(#000, #000) padding-box, linear-gradient(to bottom, #2e2929, #666666) border-box;
+  box-shadow: inset 0 0 14px rgba(255, 255, 255, .25);
+  color: #ffffff;
+}
+.timeline-card:nth-child(odd) .timeline-icon-shell { grid-column: 2; justify-self: start; }
+.timeline-card:nth-child(even) .timeline-icon-shell { grid-column: 1; justify-self: end; }
+.timeline-icon { display: block; width: 28px; height: 28px; }
+.timeline-copy h3 { font-size: clamp(28px, 2.3vw, 36px); font-weight: 500; line-height: 1; letter-spacing: -.05em; margin: 0 0 16px; text-wrap: balance; }
+.timeline-copy p { font-size: clamp(18px, 1.5vw, 22px); font-weight: 500; line-height: 1.15; letter-spacing: -.05em; margin: 0; color: #2a2a2a; text-wrap: pretty; }
+/* Animate the surface and content separately so the persistent WebGL star
+   remains above the card surface and below the text. Rows never move. */
+.timeline-copy, .timeline-icon-shell {
+  transition: opacity .6s cubic-bezier(.22, 1, .36, 1), transform .6s cubic-bezier(.22, 1, .36, 1);
+}
+/* The icon container follows the step number in the internal stagger. */
+.process.timeline-reveals .timeline-card .timeline-icon-shell { transition-delay: .12s; }
+.process.timeline-reveals .timeline-card:not(.is-revealed)::before,
+.process.timeline-reveals .timeline-card:not(.is-revealed) .timeline-copy,
+.process.timeline-reveals .timeline-card:not(.is-revealed) .timeline-icon-shell {
+  opacity: 0;
+  transform: translateY(40px) scale(.985);
+  pointer-events: none;
+}
+/* Masked text lines rise within the card once the star triggers its reveal;
+   delays come from each element's data-rv-delay (number → title → description). */
+@media (prefers-reduced-motion: no-preference) {
+  .process.timeline-reveals .timeline-card:not(.is-revealed) [data-rv="star"] .rm-i {
+    transform: translateY(115%);
+    opacity: .35;
+  }
+}
+.timeline-rail {
+  position: absolute;
+  z-index: 3;
+  top: calc(var(--step-height) / 2);
+  bottom: calc(var(--step-height) / 2);
+  left: var(--rail-x);
+  width: 2px;
+  margin-left: -1px;
+  background: transparent;
+  pointer-events: none;
+}
+.timeline-fill { position: absolute; inset: 0; transform: scaleY(0); transform-origin: top; background: var(--rail-active); }
+@media (min-width: 701px) and (max-width: 1000px) {
+  .process { --step-height: 300px; --axis-gap: 40px; padding-top: 128px; }
+  .process-title { font-size: clamp(56px, 7.5vw, 72px); margin-bottom: 100px; }
+  .timeline-card { padding-inline: 24px; }
+  .timeline-copy h3 { font-size: 28px; }
+  .timeline-copy p { font-size: 18px; }
+  .timeline-card::before { border-radius: 48px; }
+}
+@media (max-width: 700px) {
+  .process { --step-height: 320px; --axis-gap: 28px; padding-top: 100px; padding-bottom: 38svh; }
+  .process-title { font-size: clamp(30px, 8.5vw, 56px); margin-bottom: 80px; }
+  .timeline-card { padding-inline: 16px; }
+  .timeline-card::before { border-radius: 48px; }
+  .timeline-copy { padding-block: 28px; overflow-wrap: break-word; }
+  .timeline-copy h3 { font-size: clamp(17px, 4.7vw, 24px); }
+  .timeline-copy p { font-size: 16px; line-height: 1.2; }
+  .timeline-meta { margin-bottom: 16px; }
+}
+@media (max-width: 360px) {
+  .timeline-card { padding-inline: 8px; }
+  .timeline-copy h3 { font-size: 16px; }
+}
+/* Content remains available without scripting, with reduced motion, and in print. */
+@media (prefers-reduced-motion: reduce), print {
+  .process.timeline-reveals .timeline-card::before,
+  .process.timeline-reveals .timeline-card .timeline-copy,
+  .process.timeline-reveals .timeline-card .timeline-icon-shell {
+    opacity: 1; transform: none; transition: none;
+  }
+}

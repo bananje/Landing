@@ -1,0 +1,8 @@
+{
+  "preferredPath": "index.html",
+  "previews": [
+    { "path": "index.html", "kind": "html", "label": "Главная" },
+    { "path": "closed-contour.html", "kind": "html", "label": "Закрытый контур" },
+    { "path": "marketing.html", "kind": "html", "label": "Маркетинг" }
+  ]
+}

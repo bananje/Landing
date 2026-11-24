@@ -1,0 +1,41 @@
+/* Place one aria-hidden .dot-grid inside a positioned, isolated host.
+   Its two aligned patterns sit below the existing 3D (1) and UI (2) layers.
+   Override these variables on the layer to reuse or tune the component. */
+.dot-grid {
+  --grid-spacing: 32px;
+  --grid-dot-radius: .7px;
+  --grid-base-opacity: .1;
+  --grid-active-opacity: .72;
+  --grid-radius: 200px;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+  background: #000;
+}
+.dot-grid::before,
+.dot-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #fff var(--grid-dot-radius), transparent calc(var(--grid-dot-radius) + .05px));
+  background-size: var(--grid-spacing) var(--grid-spacing);
+  background-position: 0 0;
+}
+.dot-grid::before {
+  opacity: var(--grid-base-opacity);
+}
+.dot-grid::after {
+  opacity: calc(var(--highlight-opacity, 0) * var(--grid-active-opacity));
+  -webkit-mask-image: radial-gradient(circle var(--grid-radius) at var(--mouse-x, 50%) var(--mouse-y, 50%), #000 0%, rgb(0 0 0 / .7) 30%, rgb(0 0 0 / .25) 65%, transparent 100%);
+  mask-image: radial-gradient(circle var(--grid-radius) at var(--mouse-x, 50%) var(--mouse-y, 50%), #000 0%, rgb(0 0 0 / .7) 30%, rgb(0 0 0 / .25) 65%, transparent 100%);
+}
+@media (min-width: 701px) and (max-width: 1100px) {
+  .dot-grid { --grid-active-opacity: .56; }
+}
+@media (max-width: 700px), (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .dot-grid::after { display: none; }
+}
