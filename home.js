@@ -99,6 +99,20 @@
       </div>`;
     const flip = overlay.querySelector('.flip');
     apply(flip, rectOf(card));
+    // Лицевая сторона копирует раскладку настоящей карточки (строка на телефоне, колонка на десктопе),
+    // иначе при открытии и закрытии текст «съезжает» и в конце дёргается.
+    const cs = getComputedStyle(card);
+    const front = flip.querySelector('.flip__front');
+    Object.assign(front.style, {
+      flexDirection: cs.flexDirection, justifyContent: cs.justifyContent, alignItems: cs.alignItems,
+      gap: cs.gap, padding: cs.padding, borderRadius: cs.borderRadius
+    });
+    const realIdx = card.querySelector('.step__index'), realText = card.querySelector('.problem__text');
+    const ci = getComputedStyle(realIdx), ct = getComputedStyle(realText);
+    const realFlip = card.querySelector('.problem__flip'); // иконка занимает место в строке: без неё текст переносится иначе
+    if (realFlip) front.appendChild(realFlip.cloneNode(true));
+    Object.assign(front.querySelector('.step__index').style, { flex: ci.flex, minWidth: ci.minWidth, margin: ci.margin });
+    Object.assign(front.querySelector('.problem__text').style, { maxWidth: ct.maxWidth, fontSize: ct.fontSize, lineHeight: ct.lineHeight, fontWeight: ct.fontWeight, flex: ct.flex });
     flip.style.setProperty('--tw', target().width + 'px'); // ширина текста фиксирована, он не перестраивается во время анимации
     document.body.appendChild(overlay);
     document.documentElement.classList.add('flip-lock');
@@ -123,6 +137,9 @@
     setTimeout(() => {
       overlay.remove();
       card.style.visibility = '';
+      // курсор остался над карточкой: не даём ей «подпрыгнуть» (hover-подъём) сразу после возврата
+      card.classList.add('no-lift');
+      card.addEventListener('pointerleave', () => card.classList.remove('no-lift'), { once: true });
       document.documentElement.classList.remove('flip-lock');
       card.focus({ preventScroll: true });
     }, DUR);
@@ -365,5 +382,114 @@
       requestAnimationFrame(() => jump(lefts()[N]));
       window.addEventListener('load', () => jump(lefts()[N]));
     }
+  });
+})();
+
+// «Как работаем»: описание этапа раскрывается по нажатию
+(() => {
+  const rows = [...document.querySelectorAll('.method-row[data-acc]')];
+  const toggle = (row) => {
+    const on = !row.classList.contains('is-open');
+    row.classList.toggle('is-open', on);
+    row.setAttribute('aria-expanded', on ? 'true' : 'false');
+  };
+  rows.forEach((row) => {
+    row.addEventListener('click', () => toggle(row));
+    row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(row); } });
+  });
+})();
+
+// Галерея на странице кейса: листание кнопками, колесом/свайпом и перетаскиванием мышью
+(() => {
+  document.querySelectorAll('[data-gallery]').forEach((root) => {
+    const track = root.querySelector('.cs-gal__track');
+    const prev = root.querySelector('.cs-gal__btn--prev');
+    const next = root.querySelector('.cs-gal__btn--next');
+    if (!track) return;
+    const step = () => {
+      const it = track.querySelector('.cs-gal__item');
+      return it ? it.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0) : track.clientWidth;
+    };
+    const cap = root.querySelector('.cs-gal__cap');
+    const setCap = () => {
+      if (!cap) return;
+      const items = [...track.querySelectorAll('.cs-gal__item')];
+      const i = Math.min(items.length - 1, Math.max(0, Math.round(track.scrollLeft / step())));
+      cap.textContent = (items[i] && items[i].dataset.cap) || '';
+    };
+    const update = () => {
+      setCap();
+      const max = track.scrollWidth - track.clientWidth - 2;
+      if (prev) prev.disabled = track.scrollLeft <= 2;
+      if (next) next.disabled = track.scrollLeft >= max;
+    };
+    if (prev) prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    if (next) next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+    track.addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update);
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); track.scrollBy({ left: step(), behavior: 'smooth' }); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); track.scrollBy({ left: -step(), behavior: 'smooth' }); }
+    });
+    // перетаскивание мышью (на тач-экранах работает родной свайп)
+    let down = false, sx = 0, sl = 0;
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      down = true; sx = e.clientX; sl = track.scrollLeft;
+      track.classList.add('is-drag');
+    });
+    addEventListener('pointermove', (e) => { if (down) track.scrollLeft = sl - (e.clientX - sx); });
+    addEventListener('pointerup', () => {
+      if (!down) return;
+      down = false; track.classList.remove('is-drag');
+      const w = step(); track.scrollTo({ left: Math.round(track.scrollLeft / w) * w, behavior: 'smooth' });
+    });
+    update();
+  });
+})();
+
+// Страница кейса: переключатель экранов, ноутбук и телефон меняются вместе
+(() => {
+  document.querySelectorAll('[data-shots]').forEach((root) => {
+    const tabs = [...root.querySelectorAll('.cs-tab')];
+    const imgs = [...root.querySelectorAll('.cs-shot__img')];
+    const show = (key) => {
+      tabs.forEach((t) => { const on = t.dataset.key === key; t.classList.toggle('is-active', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
+      imgs.forEach((im) => im.classList.toggle('is-active', im.dataset.key === key));
+    };
+    const bar = root.querySelector('.cs-tabs');
+    const nextBtn = root.querySelector('.cs-tabs__next');
+    if (nextBtn) nextBtn.addEventListener('click', () => { if (nextBtn.classList.contains('is-back')) bar.scrollTo({ left: 0, behavior: 'smooth' }); else bar.scrollBy({ left: Math.max(160, bar.clientWidth * 0.6), behavior: 'smooth' }); });
+    const edges = () => {
+      if (!bar) return;
+      const max = bar.scrollWidth - bar.clientWidth - 2;
+      const start = bar.scrollLeft <= 2, end = bar.scrollLeft >= max;
+      bar.classList.toggle('is-start', start);
+      bar.classList.toggle('is-end', end);
+      bar.classList.toggle('is-mid', !start && !end);
+      if (nextBtn) { nextBtn.hidden = bar.scrollWidth <= bar.clientWidth + 2; nextBtn.classList.toggle('is-back', end); nextBtn.setAttribute('aria-label', end ? 'Вернуться к началу' : 'Листать вкладки вправо'); }
+      const b = bar.getBoundingClientRect();
+      tabs.forEach((t) => { const r = t.getBoundingClientRect(); t.classList.toggle('is-clipped', r.left < b.left - 1 || r.right > b.right + 1); });
+    };
+    const reveal = (t) => {
+      if (!bar) return;
+      const left = t.offsetLeft - (bar.clientWidth - t.offsetWidth) / 2;
+      bar.scrollTo({ left, behavior: 'smooth' });
+    };
+    if (bar) {
+      bar.addEventListener('scroll', edges, { passive: true });
+      addEventListener('resize', edges);
+      edges();
+    }
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', (e) => { show(t.dataset.key); reveal(t); });
+      t.addEventListener('keydown', (e) => {
+        const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        if (!d) return;
+        e.preventDefault();
+        const n = tabs[(i + d + tabs.length) % tabs.length];
+        n.focus(); show(n.dataset.key); reveal(n);
+      });
+    });
   });
 })();

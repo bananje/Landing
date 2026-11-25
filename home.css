@@ -75,21 +75,29 @@ p a, .link { text-underline-offset: 3px; }
 .problem { min-height: 260px; }
 .problem .step__index { margin-bottom: auto; }
 
-/* ---------- Метод ---------- */
-.method { display: flex; flex-direction: column; gap: var(--grid-gap); }
+/* ---------- Метод: список этапов в одной белой панели ---------- */
+.method { list-style: none; margin: 0; display: flex; flex-direction: column; background: var(--surface); border-radius: var(--r-xl, 32px); padding: clamp(8px, 1.4vw, 16px) clamp(20px, 3vw, 40px); }
 .method-row {
-  display: grid; align-items: start; gap: var(--space-5);
-  grid-template-columns: clamp(72px, 10vw, 140px) minmax(0, 1fr) minmax(0, 1fr);
-  padding: clamp(20px, 2.6vw, 32px); border-radius: var(--r-lg); background: var(--surface);
+  display: grid; grid-template-columns: 48px minmax(0, 1fr); align-items: start; gap: var(--space-4);
+  padding-block: clamp(18px, 2vw, 26px); border-bottom: 1px solid var(--line);
 }
-.method-row--key { background: var(--surface-strong); }
-.method-row__main { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); min-width: 0; }
-.method-row--solo .method-row__main { grid-column: 2 / -1; }
+.method-row:last-child { border-bottom: 0; }
+.method-row .step__index {
+  display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
+  background: var(--surface-accent); color: var(--text-on-accent); font-family: var(--font-text);
+  font-size: var(--fs-small); font-weight: var(--fw-medium); letter-spacing: 0; line-height: 1; margin-top: -12px;
+}
+.method-row__main { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); min-width: 0; }
+.method-row .h3 { font-size: clamp(1.1875rem, 1.8vw, 1.4375rem); letter-spacing: -0.02em; line-height: 1.2; }
+.method-row .chip { background: var(--surface-muted); }
+.method-row .tile__text { font-size: var(--fs-body); line-height: 1.5; margin: 0; max-width: 70ch; color: var(--text-muted) !important; }
 .method-row__extra { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
 .method-row .plan__list { color: var(--text); }
-@media (max-width: 760px) {
-  .method-row { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }
-  .method-row--solo .method-row__main { grid-column: auto; }
+@media (max-width: 560px) {
+  .method { padding: 4px 18px; border-radius: var(--r-lg); }
+  .method-row { grid-template-columns: 40px minmax(0, 1fr); gap: var(--space-3); }
+  .method-row .step__index { width: 40px; height: 40px; }
+  .method-row .tile__text { font-size: var(--fs-small); }
 }
 
 /* ---------- Сценарии ---------- */
@@ -253,7 +261,7 @@ p a, .link { text-underline-offset: 3px; }
   grid-template-rows: auto auto auto auto;
   column-gap: var(--grid-gap); row-gap: 0;
   overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-  padding: 8px 0 24px; margin: -8px 0 -24px; /* место под hover-подъём и тень */
+  padding: 20px 14px 28px; margin: -20px -14px -28px; scroll-padding-inline: 14px; /* место под hover-увеличение и тень */
   scrollbar-width: none; outline: none;
 }
 .carousel__track::-webkit-scrollbar { display: none; }
@@ -355,7 +363,13 @@ p a, .link { text-underline-offset: 3px; }
   width: 34px; height: 34px; border-radius: 50%; border: 1px solid currentColor; opacity: .55;
   font-size: 1rem; transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-slow) var(--ease-out);
 }
-.problem:hover .problem__flip, .problem:focus-visible .problem__flip { opacity: 1; transform: rotate(180deg); }
+.problem__flip svg { display: block; transform-origin: 50% 80%; }
+.problem:hover .problem__flip, .problem:focus-visible .problem__flip { opacity: 1; }
+.problem:hover .problem__flip svg, .problem:focus-visible .problem__flip svg { animation: tap-hint 900ms var(--ease-out) infinite; }
+@keyframes tap-hint { 0%, 100% { transform: translateY(0) scale(1); } 40% { transform: translateY(2px) scale(.88); } }
+@media (hover: none) { .problem__flip { animation: tap-ring 2.4s ease-out infinite; } }
+@keyframes tap-ring { 0% { box-shadow: 0 0 0 0 rgba(127,127,127,.45); } 70%, 100% { box-shadow: 0 0 0 10px rgba(127,127,127,0); } }
+@media (prefers-reduced-motion: reduce) { .problem__flip, .problem__flip svg { animation: none !important; } }
 
 .flip-lock { overflow: hidden; scrollbar-gutter: stable; }
 .flip-overlay {
@@ -500,8 +514,10 @@ p a, .link { text-underline-offset: 3px; }
   .acc .svc__text, .acc .svc__btn { opacity: 0; transition: opacity 300ms var(--ease-out); }
   .acc .svc.is-active .svc__text, .acc .svc.is-active .svc__btn { opacity: 1; transition: opacity 500ms var(--ease-out) 250ms; }
   .acc .svc__text { font-size: var(--fs-small); }
-  .acc .svc__pill { font-size: 0.75rem; }
+  .acc .svc__pill { font-size: 0.75rem; white-space: nowrap; }
+  .acc .svc__pills { flex-direction: row; flex-wrap: nowrap; gap: 6px; min-width: 0; }
 }
+@media (max-width: 380px) { .acc .svc__pill { font-size: 0.6875rem; padding: 5px 9px; gap: 5px; } .acc .svc__pills { gap: 4px; } }
 
 /* ---------- Страница «Локальные ИИ модели»: карточки, сравнение, сферы ---------- */
 .why, .ben { min-height: 190px; gap: var(--space-3); }
@@ -796,7 +812,7 @@ p a, .link { text-underline-offset: 3px; }
   .rs__list .rs__item:nth-last-child(2) { border-bottom: 1px solid var(--line); }
 }
 .rs__body { flex: 1; min-width: 0; }
-.rs__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px var(--space-3); margin-bottom: 4px; }
+.rs__row { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
 .rs__row .rs__title { margin: 0; }
 .rs__row .rs__pill { margin: 0; flex: none; }
 @media (max-width: 800px) {
@@ -858,3 +874,80 @@ p a, .link { text-underline-offset: 3px; }
 .page-audit .wk-top { margin-bottom: var(--space-5); }
 .page-audit .rs__hint { margin-top: var(--space-5); }
 .page-audit .rs__more { margin-top: var(--space-5); }
+
+/* ---------- Команда: карточки с фото ---------- */
+.people { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6, 32px) 24px; }
+.person { display: flex; flex-direction: column; gap: 12px; }
+.person__photo { position: relative; aspect-ratio: 4 / 5; border-radius: 24px; overflow: hidden; background: var(--surface); display: grid; place-items: end center; }
+.person__photo--lime { background: var(--surface-accent); }
+.person__photo--grey { background: var(--surface-strong); }
+.person__photo--ink { background: var(--surface-ink); }
+.person__photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.person__photo > svg { width: 62%; fill: currentColor; opacity: .18; margin-bottom: -2px; }
+.person__photo--ink > svg { color: #fff; opacity: .25; }
+.person__role { position: absolute; left: 0; bottom: 0; max-width: 85%; padding: 10px 18px 10px 16px; border-radius: 0 18px 0 0; background: var(--accent); color: var(--text-on-accent); font-size: var(--fs-small); font-weight: var(--fw-medium); line-height: 1.25; }
+.person__name { margin: 8px 0 0; font-size: 1.1875rem; letter-spacing: -0.02em; }
+.person__bio { margin: 0; font-size: var(--fs-small); line-height: var(--lh-body); color: var(--text-muted); max-width: 30ch; }
+@media (max-width: 960px) { .people { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) {
+  .people { gap: 24px 12px; }
+  .person__photo { border-radius: 18px; }
+  .person__role { max-width: 92%; padding: 6px 12px 6px 10px; font-size: 0.75rem; border-radius: 0 12px 0 0; }
+  .person__name { font-size: 1rem; margin-top: 4px; }
+  .person__bio { font-size: 0.8125rem; line-height: 1.45; }
+}
+.person__photo--lime .person__role { background: var(--surface-ink); color: #fff; }
+.person__photo > img { object-position: 50% 25%; }
+
+.js .tile.problem.no-lift, .js .tile.problem.no-lift:hover { transform: none; box-shadow: none; transition: none; }
+
+/* ---------- Подсказка «нажми» на карточках материалов ---------- */
+.rs__item[role="button"] > .rs__tap {
+  position: absolute; top: clamp(14px, 1.6vw, 20px); right: 12px; z-index: 1;
+  display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid currentColor; opacity: .55; transition: opacity var(--dur-base) var(--ease-out);
+}
+.rs__item[role="button"] .rs__body { padding-right: 36px; }
+.rs__tap svg { display: block; transform-origin: 50% 80%; }
+.rs__item[role="button"]:hover > .rs__tap, .rs__item[role="button"]:focus-visible > .rs__tap { opacity: 1; }
+.rs__item[role="button"]:hover .rs__tap svg, .rs__item[role="button"]:focus-visible .rs__tap svg { animation: tap-hint 900ms var(--ease-out) infinite; }
+@media (hover: none) { .rs__item[role="button"] > .rs__tap { animation: tap-ring 2.4s ease-out infinite; } }
+@media (prefers-reduced-motion: reduce) { .rs__item[role="button"] > .rs__tap, .rs__tap svg { animation: none !important; } }
+
+/* ---------- Метод: текст раскрывается по нажатию ---------- */
+.method-row { position: relative; }
+.method-row__main { padding-right: 52px; }
+.method-row__toggle {
+  position: absolute; top: clamp(18px, 2vw, 26px); right: 0; display: grid; place-items: center;
+  width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line-strong, currentColor); opacity: .6;
+  transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out), background var(--dur-base);
+}
+.method-row__toggle svg { display: block; }
+.js .method-row[data-acc] { cursor: pointer; }
+.js .method-row[data-acc]:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--r-md); }
+.js .method-row:hover .method-row__toggle, .js .method-row:focus-visible .method-row__toggle { opacity: 1; }
+.js .method-row.is-open .method-row__toggle { transform: rotate(45deg); background: var(--surface-accent); border-color: transparent; opacity: 1; }
+.js .method-row__body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 350ms var(--ease-out); }
+.js .method-row.is-open .method-row__body { grid-template-rows: 1fr; }
+.js .method-row__inner { overflow: hidden; min-height: 0; opacity: 0; transition: opacity 250ms var(--ease-out); }
+.js .method-row.is-open .method-row__inner { opacity: 1; transition-delay: 100ms; }
+.js .method-row__body .tile__text { padding-top: 4px; }
+@media (prefers-reduced-motion: reduce) { .js .method-row__body, .js .method-row__inner, .method-row__toggle { transition: none; } }
+
+/* Карточка кейса целиком кликабельна */
+.case__tag { position: relative; z-index: 1; }
+
+/* Кейс с подробной страницей: рамка, подпись и реакция на наведение */
+.case__more { position: absolute; top: clamp(20px, 2.2vw, 28px); right: clamp(20px, 2.2vw, 28px); box-sizing: border-box; height: 28px; display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; line-height: 1; border-radius: 999px; background: var(--surface-ink, #0b0b0b); color: var(--text-on-ink, #fff); font-size: var(--fs-micro, 12px); font-weight: var(--fw-medium, 500); text-decoration: none; z-index: 1; transform-origin: right center; transition: transform .2s var(--ease-out, ease); }
+.case__more:hover { transform: scale(1.08); }
+.case__tag { transform-origin: left center; transition: transform .2s var(--ease-out, ease); }
+.case__tag:hover { transform: scale(1.08); text-decoration: none; }
+@media (prefers-reduced-motion: reduce) { .case__more, .case__tag { transition: none; } }
+.case__more:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* Карточки кейсов: при наведении слегка увеличиваются, места хватает, чтобы не наплывать на соседние */
+.carousel__track { column-gap: calc(var(--grid-gap) + 8px); }
+.js .carousel__track > .tile.is-in:hover { transform: none; box-shadow: none; }
+
+/* заголовки кейсов выровнены по нижней границе шапки, даже если у одной карточки шапка выше */
+.carousel__track .case__head .tile__title { margin-top: auto; }

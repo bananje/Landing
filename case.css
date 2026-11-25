@@ -1,0 +1,343 @@
+/* Страница кейса: общие блоки (макеты устройств, сетки, этапы, цифры) */
+.page-case .section-head { margin-bottom: clamp(28px, 4vw, 56px); }
+.page-case .display .muted-part { display: block; }
+.page-case h1.display { font-size: clamp(2.25rem, 5.4vw, 4.25rem); }
+
+/* ---------- Обложка ---------- */
+.cs-hero__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-6, 32px); }
+.cs-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.cs-back { font-size: var(--fs-small); font-weight: var(--fw-medium); }
+.cs-hero__lead { max-width: 52ch; margin: var(--space-4) 0 clamp(28px, 4vw, 56px); }
+
+/* ---------- Макет ноутбука ---------- */
+.cs-lap { margin: 0; max-width: 1040px; margin-inline: auto; }
+.cs-lap__screen {
+  border: clamp(6px, .9vw, 12px) solid var(--surface-ink); border-bottom-width: clamp(8px, 1.1vw, 14px);
+  border-radius: 14px 14px 4px 4px; background: var(--surface-ink); overflow: hidden; line-height: 0;
+}
+.cs-lap__screen img { display: block; width: 100%; height: auto; border-radius: 3px; }
+.cs-lap__base {
+  position: relative; height: clamp(8px, 1.1vw, 14px); width: 104%; margin-left: -2%;
+  background: linear-gradient(#cfcfcf, #a9a9a9); border-radius: 0 0 18px 18px;
+}
+.cs-lap__base::before { content: ""; position: absolute; left: 50%; top: 0; width: 16%; height: 4px; transform: translateX(-50%); background: #8d8d8d; border-radius: 0 0 6px 6px; }
+.cs-lap--hero { max-width: 1040px; margin-inline: auto; }
+.cs-lap--hero .cs-lap__base { box-shadow: 0 24px 40px -20px rgba(11, 11, 11, .35); }
+
+/* ---------- О проекте ---------- */
+.cs-about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 80px); align-items: start; }
+.cs-about__body { display: flex; flex-direction: column; gap: var(--space-4); }
+.cs-about__body p { margin: 0; color: var(--text-muted); line-height: var(--lh-body); max-width: 60ch; }
+.cs-meta { display: grid; gap: 0; margin: 0; }
+.cs-meta > div { display: grid; grid-template-columns: 7rem 1fr; gap: var(--space-4); padding-block: 14px; border-bottom: 1px solid var(--line); }
+.cs-meta dt { font-size: var(--fs-small); color: var(--text-muted); }
+.cs-meta dd { margin: 0; font-weight: var(--fw-medium); }
+.cs-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.cs-tags li { padding: 6px 12px; border-radius: 999px; background: var(--surface-muted); font-size: var(--fs-small); font-weight: var(--fw-medium); }
+.cs-tags--stack li { background: var(--surface-ink); color: var(--text-on-ink); }
+.cs-tags--center { justify-content: center; margin-top: clamp(24px, 3vw, 40px); }
+.cs-tags--center li { background: var(--surface); }
+
+/* ---------- Цель и задачи внутри блока «О проекте» ---------- */
+.cs-goal { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(16px, 5vw, 80px); align-items: end; margin: 0 0 clamp(24px, 3vw, 40px); }
+.cs-goal__title { margin: 0; }
+.cs-goal__lead { max-width: 52ch; }
+@media (max-width: 960px) { .cs-goal { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Карточки (цель, как устроен магазин) ---------- */
+.cs-grid { display: grid; gap: var(--grid-gap); }
+.cs-grid--tasks { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.cs-grid--tasks .cs-card { grid-column: span 2; }
+.cs-grid--tasks .cs-card:nth-child(n+4) { grid-column: span 3; }
+.cs-grid--shop { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cs-card { display: flex; flex-direction: column; gap: var(--space-3); padding: clamp(20px, 2.2vw, 28px); border-radius: var(--r-lg); background: var(--surface); min-height: 200px; }
+.cs-card--lime { background: var(--surface-accent); }
+.cs-card__n { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--surface-accent); font-size: var(--fs-small); font-weight: var(--fw-medium); margin-bottom: var(--space-2); }
+.cs-card--lime .cs-card__n { background: var(--surface-ink); color: var(--accent); }
+.cs-card h3 { margin: 0; font-size: 1.1875rem; letter-spacing: -0.02em; line-height: 1.2; }
+.cs-card p { margin: 0; font-size: var(--fs-small); line-height: 1.5; color: var(--text-muted); }
+.cs-card--lime p { color: var(--text); }
+.cs-grid--shop .cs-card { background: var(--surface-muted); }
+.cs-grid--shop .cs-card__n { background: var(--surface); }
+
+/* ---------- Этапы: колонки с разделителями, без панели ---------- */
+.cs-stages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 0; padding: 0; list-style: none; }
+.cs-stage { display: flex; flex-direction: column; gap: var(--space-4); padding: 0 clamp(16px, 2.2vw, 32px); border-left: 1px solid var(--line-strong, #0b0b0b); }
+.cs-stage:first-child { border-left: 0; padding-left: 0; }
+.cs-stage:last-child { padding-right: 0; }
+.cs-stage__n { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--text); font-size: var(--fs-small); font-weight: var(--fw-medium); }
+.cs-stage h3 { margin: 0; font-size: clamp(1.375rem, 2.2vw, 1.875rem); letter-spacing: -0.03em; line-height: 1.1; }
+.cs-stage .cs-tags { flex: 1; align-content: flex-start; }
+.cs-stage .cs-tags li { padding: 8px 14px; font-size: var(--fs-small); }
+.cs-stage .cs-tags li { background: var(--surface-muted); color: var(--text); }
+.cs-stage .cs-tags li.is-dark { background: var(--surface-ink); color: var(--text-on-ink); }
+.cs-stage__days { margin: 0; font-size: 1.0625rem; font-weight: var(--fw-medium); }
+.cs-stage__days b { font-weight: inherit; margin-right: 0; font-size: inherit; }
+
+/* ---------- Экраны ---------- */
+.cs-screens { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 56px) clamp(20px, 3vw, 40px); }
+.cs-cap { margin: var(--space-3) 0 0; font-size: var(--fs-small); font-weight: var(--fw-medium); text-align: center; }
+
+/* ---------- Телефоны ---------- */
+.cs-dark { background: var(--surface-ink); color: var(--text-on-ink); }
+.cs-dark .lead { color: rgba(255, 255, 255, .7); }
+.cs-dark .muted-part { color: rgba(255, 255, 255, .55); }
+.cs-phones { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 2.4vw, 32px); align-items: start; }
+.cs-phone { margin: 0; }
+.cs-phone__screen { border: clamp(5px, .6vw, 8px) solid #2a2a2a; border-radius: clamp(20px, 2.6vw, 32px); overflow: hidden; background: #000; line-height: 0; aspect-ratio: 390 / 844; box-shadow: 0 0 0 1px #3a3a3a; }
+.cs-phone__screen img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.cs-phones > div:nth-child(even) { margin-top: clamp(20px, 4vw, 56px); }
+
+/* ---------- Админка ---------- */
+.cs-admin { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--grid-gap); align-items: start; }
+.cs-win { background: var(--surface); border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); display: flex; flex-direction: column; }
+.cs-win__bar { display: flex; align-items: center; gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--surface-muted); font-size: var(--fs-small); font-weight: var(--fw-medium); }
+.cs-win__bar i { width: 9px; height: 9px; border-radius: 50%; background: #cfcfcf; }
+.cs-win__bar span { margin-left: 8px; }
+.cs-win__cap { margin: 0; padding: 12px 16px 16px; font-size: var(--fs-micro); color: var(--text-muted); line-height: 1.4; border-top: 1px solid var(--line); }
+.cs-list, .cs-orders { margin: 0; padding: 4px 16px; list-style: none; }
+.cs-list li { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; padding-block: 12px; border-bottom: 1px solid var(--line); }
+.cs-list li:last-child, .cs-orders li:last-child { border-bottom: 0; }
+.cs-list b, .cs-orders b { font-weight: var(--fw-medium); font-size: var(--fs-small); }
+.cs-list small { display: block; font-size: var(--fs-micro); color: var(--text-muted); }
+.cs-list .cs-st { grid-column: 2 / -1; justify-self: start; }
+.cs-th { width: 44px; height: 58px; border-radius: 6px; background: url("images/cases/mlada/d-catalog.webp") no-repeat; background-size: 221px 138.5px; background-color: var(--surface-muted); grid-row: span 2; }
+.cs-th--1 { background-position: -17px -69px; }
+.cs-th--2 { background-position: -65px -69px; }
+.cs-th--3 { background-position: -113px -69px; }
+.cs-th--4 { background-position: -160px -69px; }
+.cs-pill { font-size: var(--fs-small); font-weight: var(--fw-medium); }
+.cs-st { padding: 3px 10px; border-radius: 999px; background: var(--surface-muted); font-size: var(--fs-micro); font-weight: var(--fw-medium); white-space: nowrap; }
+.cs-st--ok { background: var(--surface-accent); }
+.cs-st--new { background: var(--surface-ink); color: var(--accent); }
+.cs-st--work { background: #fff3c4; }
+.cs-st--ship { background: #dbe8ff; }
+.cs-stock { width: calc(100% - 32px); margin: 12px 16px; border-collapse: collapse; font-size: var(--fs-small); }
+.cs-stock th, .cs-stock td { padding: 10px 6px; text-align: center; border-bottom: 1px solid var(--line); }
+.cs-stock thead th { font-size: var(--fs-micro); font-weight: var(--fw-medium); color: var(--text-muted); }
+.cs-stock tbody th { text-align: left; font-weight: var(--fw-medium); font-size: var(--fs-micro); white-space: nowrap; }
+.cs-stock td { font-weight: var(--fw-medium); }
+.cs-stock .is-zero { color: #b3261e; background: #fdecea; border-radius: 6px; }
+.cs-stock tbody tr:last-child th, .cs-stock tbody tr:last-child td { border-bottom: 0; }
+.cs-sw { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--c); margin-right: 5px; vertical-align: -1px; }
+.cs-orders li { display: grid; grid-template-columns: 5.5rem 1fr auto; gap: 8px; align-items: center; padding-block: 14px; border-bottom: 1px solid var(--line); font-size: var(--fs-small); }
+
+/* ---------- Эффект ---------- */
+.cs-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--grid-gap); }
+.cs-stat { display: flex; flex-direction: column; gap: var(--space-2); padding: clamp(20px, 2.2vw, 28px); border-radius: var(--r-lg); background: var(--surface-muted); min-height: 260px; }
+.cs-stat--ink { background: var(--surface-ink); color: var(--text-on-ink); }
+.cs-stat--lime { background: var(--surface-accent); }
+.cs-stat b { font-size: clamp(2rem, 3.4vw, 3rem); letter-spacing: -0.04em; line-height: 1; font-weight: var(--fw-medium); margin-bottom: var(--space-6, 32px); }
+.cs-stat--ink b { color: var(--accent); }
+.cs-stat h3 { margin: 0; font-size: 1.0625rem; letter-spacing: -0.015em; }
+.cs-stat p { margin: 0; font-size: var(--fs-small); line-height: 1.5; opacity: .75; }
+.cs-foot { margin: var(--space-5, 24px) 0 0; font-size: var(--fs-micro); line-height: 1.5; color: var(--text-muted); max-width: 90ch; }
+
+/* ---------- Адаптив ---------- */
+@media (max-width: 960px) {
+  .cs-about { grid-template-columns: minmax(0, 1fr); }
+  .cs-grid--tasks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cs-grid--tasks .cs-card, .cs-grid--tasks .cs-card:nth-child(n+4) { grid-column: auto; }
+  .cs-grid--tasks .cs-card:last-child { grid-column: 1 / -1; }
+  .cs-grid--shop { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cs-phones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cs-admin { grid-template-columns: minmax(0, 1fr); max-width: 560px; margin-inline: auto; }
+  .cs-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .cs-stages { grid-template-columns: minmax(0, 1fr); }
+  .cs-stage { border-left: 0; padding: var(--space-5, 24px) 0 0; border-top: 1px solid var(--line-strong, #0b0b0b); }
+  .cs-stage:first-child { border-top: 0; padding-top: 0; }
+  .cs-stage h3 { min-height: 0; }
+}
+@media (max-width: 640px) {
+  .cs-screens { grid-template-columns: minmax(0, 1fr); }
+  .cs-grid--tasks, .cs-grid--shop, .cs-stages, .cs-stats { grid-template-columns: minmax(0, 1fr); }
+  .cs-grid--tasks .cs-card:last-child { grid-column: auto; }
+  .cs-card { min-height: 0; }
+  
+  .cs-stage { border-left: 0; padding: var(--space-5, 24px) 0 0; border-top: 1px solid var(--line-strong, #0b0b0b); }
+  .cs-stage:first-child { border-top: 0; padding-top: 0; }
+  .cs-stage h3 { min-height: 0; }
+  .cs-stat { min-height: 0; }
+  .cs-meta > div { grid-template-columns: 5rem 1fr; }
+}
+@media (max-width: 420px) { .cs-phones { gap: 10px; } }
+
+/* О проекте: слева описание, справа цель и задачи */
+.cs-about__main { display: flex; flex-direction: column; gap: var(--space-4); align-items: flex-start; }
+.cs-about__main .cs-meta { width: 100%; }
+.cs-about__main .cs-about__text { margin: 0; color: var(--text-muted); line-height: var(--lh-body); max-width: 60ch; }
+.cs-about__goal { display: flex; flex-direction: column; gap: var(--space-4); }
+.cs-about__goal .cs-goal__title { margin: 0; }
+.cs-about__goal .cs-goal__lead { max-width: 52ch; }
+.cs-about__goal .cs-grid--tasks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cs-about__goal .cs-grid--tasks .cs-card, .cs-about__goal .cs-grid--tasks .cs-card:nth-child(n+4) { grid-column: auto; min-height: 0; }
+.cs-about__goal .cs-grid--tasks .cs-card:last-child { grid-column: 1 / -1; }
+
+.cs-about__eyebrow { display: flex; justify-content: center; margin-bottom: clamp(20px, 3vw, 40px); }
+
+/* Задачи: строки с крупным номером, как на блоке «проблем» */
+.cs-about__goal .cs-grid--tasks { grid-template-columns: minmax(0, 1fr); gap: var(--grid-gap); }
+.cs-about__goal .cs-grid--tasks .cs-card,
+.cs-about__goal .cs-grid--tasks .cs-card:nth-child(n+4),
+.cs-about__goal .cs-grid--tasks .cs-card:last-child {
+  grid-column: auto; display: grid; grid-template-columns: clamp(64px, 7vw, 96px) minmax(0, 1fr);
+  align-items: center; column-gap: var(--space-4); row-gap: 4px;
+  padding: 18px clamp(18px, 2vw, 28px); border-radius: var(--r-md); min-height: 0;
+}
+.cs-about__goal .cs-card__n {
+  display: block; grid-row: span 2; width: auto; height: auto; border-radius: 0; background: none; margin: 0; white-space: nowrap;
+  font-size: var(--fs-index, 2.5rem); font-weight: var(--fw-regular); letter-spacing: -0.03em; line-height: 1; color: var(--text);
+}
+.cs-about__goal .cs-card__n::before { content: "/"; }
+.cs-about__goal .cs-card h3 { font-size: 1.1875rem; }
+.cs-about__goal .cs-card p { font-size: var(--fs-small); }
+.cs-about__goal .cs-card--lime .cs-card__n { background: none; color: var(--text); }
+.cs-about__goal .cs-card--ink { background: var(--surface-ink); color: var(--text-on-ink); }
+.cs-about__goal .cs-card--ink .cs-card__n { color: var(--accent); }
+.cs-about__goal .cs-card--ink p { color: rgba(255, 255, 255, .75); }
+
+.cs-about { align-items: stretch; }
+.cs-about__goal { justify-content: flex-start; }
+.cs-about__main .cs-meta > div:first-child { padding-top: 0; }
+
+/* «О проекте»: нижние границы колонок на одном уровне */
+.cs-about__main { justify-content: space-between; }
+.cs-about__goal .cs-grid--tasks { flex: 1; grid-auto-rows: 1fr; }
+@media (max-width: 960px) { .cs-about__main { justify-content: flex-start; } .cs-about__goal .cs-grid--tasks { flex: none; grid-auto-rows: auto; } }
+
+/* «Как устроен магазин»: шахматная мозаика */
+.cs-grid--shop { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(230px, auto); }
+.cs-grid--shop .cs-card { background: var(--surface); justify-content: space-between; gap: var(--space-5, 24px); padding: clamp(22px, 2.4vw, 32px); border-radius: var(--r-xl, 32px); min-height: 0; }
+.cs-grid--shop .cs-card:nth-child(1), .cs-grid--shop .cs-card:nth-child(4), .cs-grid--shop .cs-card:nth-child(5) { grid-column: span 2; }
+.cs-grid--shop .cs-card__n { width: auto; height: auto; background: none; margin: 0; display: block; font-size: var(--fs-index, 2.5rem); line-height: 1; letter-spacing: -0.03em; font-weight: var(--fw-regular); }
+.cs-grid--shop .cs-card__n::before { content: "/"; }
+.cs-grid--shop .cs-card > div, .cs-grid--shop .cs-card h3 { margin: 0; }
+.cs-grid--shop .cs-card h3 { font-size: clamp(1.25rem, 1.8vw, 1.625rem); letter-spacing: -0.025em; }
+.cs-grid--shop .cs-card p { font-size: var(--fs-body); max-width: 44ch; }
+.cs-grid--shop .cs-card:nth-child(1) { background: var(--surface-accent); }
+.cs-grid--shop .cs-card:nth-child(1) p { color: var(--text); }
+.cs-grid--shop .cs-card:nth-child(3) { background: var(--surface-ink); color: var(--text-on-ink); }
+.cs-grid--shop .cs-card:nth-child(3) .cs-card__n { color: var(--accent); }
+.cs-grid--shop .cs-card:nth-child(3) p { color: rgba(255, 255, 255, .75); }
+.cs-grid--shop .cs-card:nth-child(4), .cs-grid--shop .cs-card:nth-child(6) { background: var(--surface-muted); }
+@media (max-width: 960px) {
+  .cs-grid--shop { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cs-grid--shop .cs-card:nth-child(n) { grid-column: auto; }
+  .cs-grid--shop .cs-card:nth-child(1) { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .cs-grid--shop { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; }
+  .cs-grid--shop .cs-card:nth-child(n) { grid-column: auto; }
+  .cs-grid--shop .cs-card { gap: var(--space-4); }
+}
+
+/* «Как устроен магазин»: компактный вариант */
+.cs-grid--shop { grid-auto-rows: auto; gap: 12px; }
+.cs-grid--shop .cs-card { padding: 18px 22px; border-radius: var(--r-lg); gap: var(--space-3); justify-content: flex-start; }
+.cs-grid--shop .cs-card__n { font-size: 1.375rem; }
+.cs-grid--shop .cs-card h3 { font-size: 1.0625rem; letter-spacing: -0.02em; }
+.cs-grid--shop .cs-card p { font-size: var(--fs-small); line-height: 1.45; max-width: none; }
+
+/* ---------- Галерея экранов: два в ряд, листается свайпом ---------- */
+.cs-gal { position: relative; }
+.cs-gal__track { display: flex; gap: clamp(12px, 1.6vw, 20px); overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; scrollbar-width: none; outline: none; cursor: grab; }
+.cs-gal__track::-webkit-scrollbar { display: none; }
+.cs-gal__track.is-drag { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; }
+.cs-gal__item { flex: 0 0 calc(50% - clamp(6px, .8vw, 10px)); margin: 0; scroll-snap-align: start; }
+.cs-gal__item img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--surface-muted); user-select: none; }
+.cs-gal__item figcaption { margin-top: var(--space-3); font-size: var(--fs-small); font-weight: var(--fw-medium); text-align: center; }
+.cs-gal__nav { display: flex; justify-content: center; gap: 12px; margin-top: var(--space-4); }
+.cs-gal__btn { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line-strong, #0b0b0b); background: var(--surface); color: var(--text); cursor: pointer; transition: background .2s, color .2s, opacity .2s; }
+.cs-gal__btn:hover:not(:disabled) { background: var(--surface-ink); color: var(--text-on-ink); }
+.cs-gal__btn:disabled { opacity: .3; cursor: default; }
+@media (max-width: 640px) { .cs-gal__item { flex-basis: 86%; } }
+
+/* Подписи галереи в стиле плашек сайта */
+.cs-gal__item figcaption { display: table; margin: var(--space-3) auto 0; padding: 4px 14px; border-radius: 999px; background: var(--surface-muted); font-size: 0.75rem; font-weight: var(--fw-medium); line-height: 1.6; letter-spacing: 0.01em; }
+
+/* ---------- Единые компактные отступы между блоками ---------- */
+.page-case { --cs-y: clamp(44px, 5.4vw, 72px); }
+.page-case .section { padding-block: var(--cs-y); }
+.page-case .cs-hero { padding-top: clamp(32px, 4vw, 56px); }
+.page-case .section-head { margin-bottom: clamp(24px, 3vw, 40px); gap: var(--space-3); }
+.page-case .cs-hero__lead { margin-bottom: clamp(24px, 3vw, 40px); }
+.page-case .cs-foot { margin-top: var(--space-4); }
+.page-case .cs-tags--center { margin-top: clamp(20px, 2.4vw, 32px); }
+
+/* ---------- Решение: ноутбук и телефон с листаемыми экранами ---------- */
+.cs-duo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, clamp(200px, 24vw, 280px)); gap: clamp(24px, 4vw, 56px); align-items: center; }
+.cs-duo .cs-lap { max-width: none; }
+.cs-gal--one .cs-gal__track { gap: 0; }
+.cs-gal--one .cs-gal__item { flex: 0 0 100%; }
+.cs-gal--one .cs-gal__item img { border: 0; border-radius: 0; background: none; }
+.cs-duo__lap .cs-gal__item img { aspect-ratio: 16 / 10; object-position: top; }
+.cs-duo__phone .cs-gal__item img { aspect-ratio: 390 / 844; object-position: top; }
+.cs-duo__phone .cs-phone__screen { box-shadow: 0 0 0 1px #3a3a3a, 0 24px 40px -24px rgba(11, 11, 11, .45); }
+.cs-gal__cap { display: table; margin: var(--space-3) auto 0; padding: 4px 14px; border-radius: 999px; background: var(--surface-muted); font-size: 0.75rem; font-weight: var(--fw-medium); line-height: 1.6; min-height: 1.6em; }
+.cs-gal__cap:empty { visibility: hidden; }
+.cs-duo .cs-gal__nav { margin-top: var(--space-3); }
+@media (max-width: 760px) { .cs-duo { grid-template-columns: minmax(0, 1fr); } .cs-duo__phone { width: min(260px, 70%); margin-inline: auto; } }
+
+/* Решение: просто скриншоты со скруглёнными краями, без рамок устройств */
+.cs-duo .cs-lap__base { display: none; }
+.cs-duo .cs-lap__screen, .cs-duo .cs-phone__screen { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface-muted); box-shadow: none; overflow: hidden; }
+.cs-duo .cs-phone__screen { aspect-ratio: auto; }
+.cs-duo .cs-lap__screen img, .cs-duo .cs-phone__screen img { border-radius: 0; }
+
+/* ---------- Решение: переключатель экранов, ноутбук и телефон синхронно ---------- */
+.cs-duo { align-items: end; }
+.cs-duo__main { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+.cs-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.cs-tab { padding: 8px 16px; border: 1px solid var(--line-strong, #0b0b0b); border-radius: 999px; background: transparent; color: var(--text); font: inherit; font-size: var(--fs-small); font-weight: var(--fw-medium); cursor: pointer; transition: background .2s, color .2s; }
+.cs-tab:hover { background: var(--surface-muted); }
+.cs-tab.is-active { background: var(--surface-ink); color: var(--text-on-ink); border-color: var(--surface-ink); }
+.cs-tab:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.cs-shot { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface-muted); }
+.cs-shot--lap { aspect-ratio: 16 / 10; }
+.cs-shot--phone { aspect-ratio: 390 / 844; }
+.cs-shot__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 350ms var(--ease-out, ease); user-select: none; }
+.cs-shot__img.is-active { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .cs-shot__img { transition: none; } }
+@media (max-width: 760px) { .cs-duo { align-items: start; } .cs-duo__side { width: min(260px, 70%); margin-inline: auto; } }
+
+/* Решение: плотнее между подзаголовком, переключателем и колонками */
+.page-case section[aria-labelledby="sol-title"] .section-head { margin-bottom: clamp(16px, 2vw, 24px); }
+.cs-duo { gap: clamp(12px, 1.6vw, 20px); }
+.cs-duo__main { gap: var(--space-3); }
+.cs-duo { align-items: stretch; }
+.cs-duo__side { display: flex; }
+.cs-duo__side .cs-shot--phone { flex: 1; aspect-ratio: auto; }
+@media (max-width: 760px) { .cs-duo__side { display: block; } .cs-duo__side .cs-shot--phone { aspect-ratio: 390 / 844; } }
+
+/* Переключатель экранов: один ряд, листается */
+.cs-tabs { flex-wrap: nowrap; overflow: hidden; scrollbar-width: none; padding: 2px; margin: -2px; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); }
+.cs-tabs::-webkit-scrollbar { display: none; }
+.cs-tabs.is-start { -webkit-mask-image: none; mask-image: none; }
+.cs-tabs.is-end { -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px); mask-image: linear-gradient(90deg, transparent, #000 28px); }
+.cs-tabs.is-start.is-end { -webkit-mask-image: none; mask-image: none; }
+.cs-tabs.is-mid { -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); }
+.cs-tab { flex: none; white-space: nowrap; scroll-snap-align: start; }
+
+/* Стрелка «листать» у переключателя экранов */
+.cs-tabs-wrap { position: relative; min-width: 0; }
+.cs-tabs__next { position: absolute; right: 0; top: 0; bottom: 0; width: 44px; display: grid; place-items: center; padding: 8px 16px; border: 1px solid var(--line-strong, #0b0b0b); border-radius: 999px; background: transparent; color: var(--text); cursor: pointer; transition: background .2s, color .2s; }
+.cs-tabs__next[hidden] { display: none; }
+.cs-tabs__next:hover { background: var(--surface-muted); }
+.cs-tabs__next:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.cs-tabs-wrap .cs-tabs { margin-right: 52px; -webkit-mask-image: none !important; mask-image: none !important; }
+.cs-tabs-wrap .cs-tabs.is-start.is-end { margin-right: 0; }
+.cs-tab.is-clipped { opacity: 0; pointer-events: none; }
+.cs-tab { transition: background .2s, color .2s, opacity .2s; }
+.cs-tabs__next.is-back svg { transform: rotate(180deg); }
+
+/* О проекте на телефоне и планшете (одна колонка): сначала три карточки, затем описание и технологии; на ПК — прежняя раскладка */
+@media (max-width: 960px) {
+  .cs-about { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-5, 24px); }
+  .cs-about__main { display: contents; }
+  .cs-about__main .cs-meta { order: 1; }
+  .cs-about__goal { order: 2; }
+  .cs-about__main .cs-about__text { order: 3; }
+  .cs-about__main .cs-tags { order: 4; }
+}
