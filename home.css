@@ -888,7 +888,7 @@ p a, .link { text-underline-offset: 3px; }
 .person__role { position: absolute; left: 0; bottom: 0; max-width: 85%; padding: 10px 18px 10px 16px; border-radius: 0 18px 0 0; background: var(--accent); color: var(--text-on-accent); font-size: var(--fs-small); font-weight: var(--fw-medium); line-height: 1.25; }
 .person__name { margin: 8px 0 0; font-size: 1.1875rem; letter-spacing: -0.02em; }
 .person__bio { margin: 0; font-size: var(--fs-small); line-height: var(--lh-body); color: var(--text-muted); max-width: 30ch; }
-@media (max-width: 960px) { .people { grid-template-columns: repeat(2, 1fr); } }
+
 @media (max-width: 520px) {
   .people { gap: 24px 12px; }
   .person__photo { border-radius: 18px; }
@@ -951,3 +951,21 @@ p a, .link { text-underline-offset: 3px; }
 
 /* заголовки кейсов выровнены по нижней границе шапки, даже если у одной карточки шапка выше */
 .carousel__track .case__head .tile__title { margin-top: auto; }
+
+/* Команда: если четыре человека не помещаются в один ряд — слайдер */
+.people__btn { display: none; }
+@media (max-width: 960px) {
+  .people-wrap { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: var(--space-3, 12px); align-items: stretch; }
+  .people { display: grid; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: calc((100% - 24px) / 2); gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .people::-webkit-scrollbar { display: none; }
+  .person { scroll-snap-align: start; }
+  .people__btn { display: grid; align-self: start; margin-top: calc(var(--photo-h, 0px) / 2 - 24px); place-items: center; width: 36px; height: 48px; padding: 0; border: 0; background: none; color: var(--text); cursor: pointer; transition: color .2s, opacity .2s, transform .2s; }
+  .people__btn svg { width: 28px; height: 28px; }
+  .people__btn:hover:not(:disabled) { color: var(--text-muted); }
+  .people__btn--prev:hover:not(:disabled) { transform: translateX(-3px); }
+  .people__btn--next:hover:not(:disabled) { transform: translateX(3px); }
+  .people__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+  .people__btn:disabled { opacity: .25; cursor: default; pointer-events: none; }
+}
+@media (max-width: 600px) { .people { grid-auto-columns: 100%; gap: 12px; } .people__btn { width: 28px; } .people__btn svg { width: 24px; height: 24px; } }
+@media (prefers-reduced-motion: reduce) { .people { scroll-behavior: auto; } }

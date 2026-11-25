@@ -244,12 +244,12 @@
           <article class="tile tile--grey case" data-reveal>
             <div class="case__head">
               <a class="chip chip--lime case__tag" href="services/websites.html">Разработка под ключ</a>
-              <h3 class="tile__title">Бренд одежды MLADA</h3>
+              <h3 class="tile__title">Интернет-магазин</h3>
             <a class="case__more" href="cases/mlada.html" aria-label="Подробнее о кейсе MLADA">Подробнее <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </div>
             <dl>
-              <div><dt>Было</dt><dd>Продажи шли только через маркетплейсы, а лендинг приходилось вручную обновлять: сверять остатки по всем площадкам и вносить их на сайт.</dd></div>
-              <div><dt>Сделали</dt><dd>Собственный магазин: учёт остатков по цвету, размеру и росту с автосписанием, личный кабинет с бонусами, Telegram-бот для сертификатов и промокодов, админка для владельца.</dd></div>
+              <div><dt>Было</dt><dd>Продажи шли только через маркетплейсы, остатки на сайте приходилось обновлять вручную.</dd></div>
+              <div><dt>Сделали</dt><dd>Собственный магазин с автоучётом остатков, личным кабинетом, Telegram-ботом и админкой.</dd></div>
             </dl>
             <p class="case__result"><span>Стало</span>Свой канал продаж с комиссией в 8–10 раз ниже маркетплейса</p>
           </article>
@@ -322,7 +322,9 @@
           <h2 class="h2" id="team-title">Четыре человека, <span class="muted-part">которые отвечают за результат</span></h2>
           <p class="lead">и команда опытных разработчиков, devops и тестировщиков</p>
         </div>
-        <div class="people">
+        <div class="people-wrap" data-people>
+          <button class="people__btn people__btn--prev" type="button" aria-label="Предыдущие"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <div class="people">
           <article class="person" data-reveal>
             <div class="person__photo person__photo--lime">
               <img src="images/team/pekines.jpg" alt="Пекинес, аналитик и руководитель проектов" loading="lazy" style="object-position: 35% 45%">
@@ -357,6 +359,8 @@
             <h3 class="person__name">Имя Фамилия</h3>
             <p class="person__bio">Проверяет, что всё работает и считает верно, до того как это увидите вы.</p>
           </article>
+          </div>
+          <button class="people__btn people__btn--next" type="button" aria-label="Следующие"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
         </div>
       </div>
     </section>

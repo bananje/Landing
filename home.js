@@ -493,3 +493,29 @@
     });
   });
 })();
+
+// Команда: кнопки слайдера (на узких экранах ряд листается)
+(() => {
+  document.querySelectorAll('[data-people]').forEach((root) => {
+    const track = root.querySelector('.people');
+    const prev = root.querySelector('.people__btn--prev');
+    const next = root.querySelector('.people__btn--next');
+    if (!track) return;
+    const step = () => {
+      const it = track.querySelector('.person');
+      return it ? it.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0) : track.clientWidth;
+    };
+    const update = () => {
+      const ph = track.querySelector('.person__photo');
+      if (ph) root.style.setProperty('--photo-h', ph.getBoundingClientRect().height + 'px');
+      const max = track.scrollWidth - track.clientWidth - 2;
+      if (prev) prev.disabled = track.scrollLeft <= 2;
+      if (next) next.disabled = track.scrollLeft >= max;
+    };
+    if (prev) prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    if (next) next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+    track.addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update);
+    update();
+  });
+})();
