@@ -209,29 +209,30 @@
   });
 })();
 
-// Итоги аудита: по клику на пункт открывается окно с описанием шага
+// Итоги аудита: по клику на пункт открывается окно с описанием шага.
+// Окно не меняет размеры и положение: «раскрывается» через clip-path из прямоугольника пункта,
+// поэтому анимация не вызывает перерасчёта разметки и не дёргается.
 (() => {
   const items = [...document.querySelectorAll('.rs__item[data-how]')];
   if (!items.length) return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const DUR = reduce ? 0 : 600;
+  const DUR = reduce ? 0 : 480;
   let current = null;
   const esc = (t) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const rectOf = (el) => { const r = el.getBoundingClientRect(); return { left: r.left, top: r.top, width: r.width, height: r.height }; };
-  const apply = (el, r) => Object.assign(el.style, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' });
-  // высота окна подгоняется под содержимое, чтобы между блоками не было пустоты
-  const natural = (dlg, w) => {
-    const c = dlg.querySelector('.dlg__content');
-    c.style.height = 'auto';
-    const h = c.offsetHeight;
-    c.style.height = '';
-    return h;
-  };
-  const target = (dlg) => {
-    const w = Math.min(560, innerWidth - 32);
-    if (dlg) dlg.style.setProperty('--dw', w + 'px');
-    const h = Math.min(innerHeight - 40, dlg ? natural(dlg, w) : 500);
-    return { left: (innerWidth - w) / 2, top: (innerHeight - h) / 2, width: w, height: h };
+  const view = () => ({ w: document.documentElement.clientWidth, h: window.innerHeight });
+  const clipOf = (r, radius) => { const v = view(); return `inset(${r.top}px ${v.w - r.right}px ${v.h - r.bottom}px ${r.left}px round ${radius}px)`; };
+  // размер окна: ширина фиксирована, высота по содержимому, но не больше экрана
+  const sizeOf = (box) => {
+    const v = view();
+    const w = Math.min(560, v.w - 32);
+    box.style.width = w + 'px';
+    box.style.height = 'auto';
+    const natural = box.scrollHeight;
+    const max = v.h - 40;
+    box.classList.toggle('is-scroll', natural > max);
+    const h = Math.min(natural, max);
+    box.style.height = h + 'px';
+    return { left: (v.w - w) / 2, top: (v.h - h) / 2, right: (v.w + w) / 2, bottom: (v.h + h) / 2 };
   };
 
   function open(item) {
@@ -242,26 +243,30 @@
     overlay.className = 'dlg-overlay';
     overlay.innerHTML = `
       <div class="dlg" role="dialog" aria-modal="true" aria-label="${esc(title)}">
-        <button class="dlg__close" type="button" aria-label="Закрыть">×</button>
-        <div class="dlg__content">
-          <div class="dlg__top"><span class="dlg__n">${esc(d.n)}</span><span class="${esc(item.querySelector('.rs__pill').className)}">${esc(d.group)}</span></div>
-          <h3 class="dlg__title">${esc(title)}</h3>
-          <div><span class="dlg__label">Как проходит</span><p class="dlg__text">${esc(d.how)}</p></div>
-          <div class="dlg__time"><span class="dlg__label">Ваше время</span>${esc(d.time)}</div>
-          <div class="dlg__res"><span class="dlg__label">Что получите</span>${esc(d.result)}</div>
+        <div class="dlg__box">
+          <button class="dlg__close" type="button" aria-label="Закрыть">×</button>
+          <div class="dlg__content">
+            <div class="dlg__top"><span class="dlg__n">${esc(d.n)}</span><span class="${esc(item.querySelector('.rs__pill').className)}">${esc(d.group)}</span></div>
+            <h3 class="dlg__title">${esc(title)}</h3>
+            <div><span class="dlg__label">Как проходит</span><p class="dlg__text">${esc(d.how)}</p></div>
+            <div class="dlg__time"><span class="dlg__label">Ваше время</span>${esc(d.time)}</div>
+            <div class="dlg__res"><span class="dlg__label">Что получите</span>${esc(d.result)}</div>
+          </div>
         </div>
       </div>`;
     const dlg = overlay.querySelector('.dlg');
-    apply(dlg, rectOf(item));
+    const box = overlay.querySelector('.dlg__box');
+    dlg.style.clipPath = clipOf(item.getBoundingClientRect(), 16);
     document.body.appendChild(overlay);
-    target(dlg);
+    const f = sizeOf(box);
     document.documentElement.classList.add('flip-lock');
-    current = { item, overlay, dlg };
+    item.classList.add('is-src');
+    current = { item, overlay, dlg, box, timer: 0 };
     void dlg.offsetWidth;
     overlay.classList.add('is-open');
-    apply(dlg, target(dlg));
-    setTimeout(() => overlay.querySelector('.dlg__close').focus({ preventScroll: true }), DUR);
-    overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+    dlg.style.clipPath = clipOf(f, 32);
+    setTimeout(() => { if (current && current.overlay === overlay) overlay.querySelector('.dlg__close').focus({ preventScroll: true }); }, DUR);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay || e.target === dlg) close(); });
     overlay.querySelector('.dlg__close').addEventListener('click', close);
   }
 
@@ -270,12 +275,15 @@
     const { item, overlay, dlg } = current;
     current = null;
     overlay.classList.remove('is-open');
-    apply(dlg, rectOf(item));
+    overlay.classList.add('is-closing');
+    dlg.style.clipPath = clipOf(item.getBoundingClientRect(), 16);
+    // в конце пункт плавно «проявляется» на месте окна, без белого прямоугольника поверх него
+    setTimeout(() => { item.classList.remove('is-src'); dlg.style.opacity = '0'; }, Math.max(0, DUR - 140));
     setTimeout(() => {
       overlay.remove();
       document.documentElement.classList.remove('flip-lock');
       item.focus({ preventScroll: true });
-    }, DUR);
+    }, DUR + 160);
   }
 
   items.forEach((el) => {
@@ -283,7 +291,14 @@
     el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(el); } });
   });
   addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
-  addEventListener('resize', () => { if (current) apply(current.dlg, target(current.dlg)); });
+  addEventListener('resize', () => {
+    if (!current) return;
+    const f = sizeOf(current.box);
+    current.dlg.style.transition = 'none';
+    current.dlg.style.clipPath = clipOf(f, 32);
+    void current.dlg.offsetWidth;
+    current.dlg.style.transition = '';
+  });
 })();
 
 /* Список материалов на телефоне: сначала 3 пункта, остальные по кнопке */
@@ -518,4 +533,73 @@
     addEventListener('resize', update);
     update();
   });
+})();
+
+// Мобильное меню закрывается после выбора пункта, по клику вне меню и по Escape
+(() => {
+  document.querySelectorAll('.mobile-menu').forEach((menu) => {
+    menu.querySelectorAll('nav a').forEach((a) => a.addEventListener('click', () => { menu.open = false; }));
+    // клик или касание вне меню и Escape тоже закрывают его
+    document.addEventListener('pointerdown', (e) => { if (menu.open && !menu.contains(e.target)) menu.open = false; });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.open) { menu.open = false; const sm = menu.querySelector('summary'); if (sm) sm.focus({ preventScroll: true }); } });
+  });
+})();
+
+// Плавный переход к якорям: длительность растёт с расстоянием, чтобы на длинной странице прокрутка не выглядела рывком
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  let raf = 0;
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+    const id = decodeURIComponent(a.getAttribute('href').slice(1));
+    const el = id && document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    const root = document.documentElement;
+    const offset = (parseFloat(getComputedStyle(el).scrollMarginTop) || 0) + (parseFloat(getComputedStyle(root).scrollPaddingTop) || 0);
+    const max = root.scrollHeight - innerHeight;
+    const to = Math.max(0, Math.min(max, el.getBoundingClientRect().top + scrollY - offset));
+    const from = scrollY, dist = to - from;
+    history.pushState(null, '', '#' + id);
+    if (!dist) return;
+    const dur = Math.max(600, Math.min(1800, Math.abs(dist) * 0.35));
+    const t0 = performance.now();
+    cancelAnimationFrame(raf);
+    root.style.scrollBehavior = 'auto';
+    const stop = () => { cancelAnimationFrame(raf); root.style.scrollBehavior = ''; removeEventListener('wheel', stop); removeEventListener('touchstart', stop); };
+    addEventListener('wheel', stop, { passive: true, once: true });
+    addEventListener('touchstart', stop, { passive: true, once: true });
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / dur);
+      scrollTo(0, from + dist * ease(p));
+      if (p < 1) raf = requestAnimationFrame(step); else stop();
+    };
+    raf = requestAnimationFrame(step);
+  });
+})();
+
+// Плашка про cookie: выбор запоминается в браузере
+(() => {
+  const KEY = 'cookie-choice';
+  const get = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+  const set = (v) => { try { localStorage.setItem(KEY, v); } catch (e) { /* без хранилища плашка просто покажется снова */ } };
+  if (get()) return;
+  const link = document.querySelector('a[href$="cookies.html"]');
+  const bar = document.createElement('div');
+  bar.className = 'cookie';
+  bar.setAttribute('role', 'region');
+  bar.setAttribute('aria-label', 'Использование cookie');
+  bar.innerHTML = '<p class="cookie__text">Мы используем cookie, чтобы сайт работал корректно и мы понимали, как им пользуются. <a href="' + (link ? link.getAttribute('href') : 'cookies.html') + '">Подробнее</a></p>' +
+    '<div class="cookie__actions"><button type="button" class="btn btn--sm btn--outline" data-v="necessary">Только необходимые</button><button type="button" class="btn btn--sm" data-v="all">Принять</button></div>';
+  bar.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-v]');
+    if (!b) return;
+    set(b.dataset.v);
+    bar.classList.remove('is-in');
+    setTimeout(() => bar.remove(), 300);
+  });
+  document.body.appendChild(bar);
+  requestAnimationFrame(() => requestAnimationFrame(() => bar.classList.add('is-in')));
 })();

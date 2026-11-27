@@ -7,7 +7,7 @@
 .cs-hero__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-6, 32px); }
 .cs-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .cs-back { font-size: var(--fs-small); font-weight: var(--fw-medium); }
-.cs-hero__lead { max-width: 52ch; margin: var(--space-4) 0 clamp(28px, 4vw, 56px); }
+.cs-hero__lead { max-width: 52ch; margin: var(--space-5) 0 clamp(28px, 4vw, 56px); }
 
 /* ---------- Макет ноутбука ---------- */
 .cs-lap { margin: 0; max-width: 1040px; margin-inline: auto; }
@@ -261,7 +261,7 @@
 .page-case { --cs-y: clamp(44px, 5.4vw, 72px); }
 .page-case .section { padding-block: var(--cs-y); }
 .page-case .cs-hero { padding-top: clamp(32px, 4vw, 56px); }
-.page-case .section-head { margin-bottom: clamp(24px, 3vw, 40px); gap: var(--space-3); }
+.page-case .section-head { margin-bottom: clamp(24px, 3vw, 40px); }
 .page-case .cs-hero__lead { margin-bottom: clamp(24px, 3vw, 40px); }
 .page-case .cs-foot { margin-top: var(--space-4); }
 .page-case .cs-tags--center { margin-top: clamp(20px, 2.4vw, 32px); }
@@ -341,3 +341,7 @@
   .cs-about__main .cs-about__text { order: 3; }
   .cs-about__main .cs-tags { order: 4; }
 }
+
+/* Ссылка «Все кейсы» стоит отдельной строкой сверху слева, как «Все услуги» на страницах услуг */
+.page-case .svc-hero__back { margin-bottom: var(--space-5); }
+.page-case .cs-hero__top { justify-content: flex-start; }
